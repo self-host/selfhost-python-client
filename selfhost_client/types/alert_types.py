@@ -10,6 +10,13 @@ class CreatedAlertResponse(TypedDict):
     """
     Attributes:
         uuid: The unique identifier for the created alert
+
+    Example::
+
+        {
+            'uuid': '5d8c23d7-3a78-4159-aa40-e3ef3d9bfe55'
+        }
+
     """
     uuid: str
 
@@ -24,7 +31,6 @@ class AlertType(TypedDict):
         severity: TODO
         status: TODO
         service: TODO
-        string: TODO
         value: TODO
         description: TODO
         origin: TODO
@@ -35,6 +41,35 @@ class AlertType(TypedDict):
         duplicate: TODO
         previous_severity: TODO
         last_receive_time: TODO
+
+    Example::
+
+        {
+            'uuid': '5d8c23d7-3a78-4159-aa40-e3ef3d9bfe55',
+            'resource': 'string',
+            'environment': 'string',
+            'event': 'string',
+            'severity': 'critical',
+            'status': 'open',
+            'service': [
+                'service1',
+                'service2'
+            ],
+            'value': 'string'
+            'description': 'new alert',
+            'origin': 'string',
+            'tags': [
+                'tag1',
+                'tag2'
+            ],
+            'created': '2017-07-21T17:32:28+02:00',
+            'timeout': 0,
+            'rawdata': 'string',
+            'duplicate': 0,
+            'previous_severity': 'critical',
+            'last_receive_time': '2017-07-21T17:32:28+02:00',
+        }
+
     """
     uuid: str
     resource: str
