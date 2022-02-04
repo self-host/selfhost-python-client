@@ -130,10 +130,10 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to update.
             name (Optional[str]): The name of the user
-            si_unit (Optional[str]):
+            si_unit (Optional[str]): TODO
             thing_uuid (Optional[str]): UUID of the thing associated to this timeseries
-            lower_bound (Optional[int]):
-            upper_bound (Optional[int]):
+            lower_bound (Optional[int]): TODO
+            upper_bound (Optional[int]): TODO
             tags (Optional[List[str]]): Tags pinned on the thing
 
         Raises:
@@ -194,7 +194,9 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             unit (Optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
@@ -277,7 +279,9 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
 
@@ -317,7 +321,9 @@ class TimeseriesClient(BaseClient):
         Args:
             uuids (List[str]): A series of timeseries UUIDs to search for.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
             unit (optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (optional[int]): Value should be greater or equal to (>=) this.
             le (optional[int]): Value should be less or equal to (<=) this.
