@@ -575,8 +575,10 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
-<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
-<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
+<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 </ul>
@@ -863,8 +865,10 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uuids</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – A series of timeseries UUIDs to search for.</p></li>
-<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
-<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
+<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <li><p><strong>unit</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
@@ -1184,8 +1188,10 @@ Available values : avg, min, max, sum, count</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
-<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
-<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.</p></li>
+<li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+<li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <li><p><strong>unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
@@ -1510,10 +1516,10 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the user</p></li>
-<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – </p></li>
+<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
 <li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of the thing associated to this timeseries</p></li>
-<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
-<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – </p></li>
+<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
+<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
 <li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the thing</p></li>
 </ul>
 </dd>
