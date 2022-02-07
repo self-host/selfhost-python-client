@@ -41,3 +41,13 @@ versions of Python installed, otherwise you must pass ``-e``.
 
     $ tox
     $ tox -e py37,py38
+
+Enable Debug Logging
+~~~~~~~~~~~~~~~~~~~~
+Logging can be enabled in order to debug sent requests to the EnergyView API. To enable logging, add a handler to the `selfhost_client` logger:
+
+.. code-block:: python
+
+    >>> import logging
+    >>> logging.getLogger('selfhost_client').addHandler(logging.StreamHandler())
+    >>> logging.getLogger('selfhost_client').setLevel(logging.DEBUG)

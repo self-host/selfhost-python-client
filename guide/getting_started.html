@@ -41,6 +41,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#using-self-host-python-client">Using Self-host python client</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#running-tests">Running Tests</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#enable-debug-logging">Enable Debug Logging</a></li>
 </ul>
 </li>
 </ul>
@@ -113,6 +114,15 @@ it will run all of the unit tests, linters and coverage. Note that this requires
 versions of Python installed, otherwise you must pass <code class="docutils literal notranslate"><span class="pre">-e</span></code>.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>$ tox
 $ tox -e py37,py38
+</pre></div>
+</div>
+</section>
+<section id="enable-debug-logging">
+<h2>Enable Debug Logging<a class="headerlink" href="#enable-debug-logging" title="Permalink to this headline"></a></h2>
+<p>Logging can be enabled in order to debug sent requests to the EnergyView API. To enable logging, add a handler to the <cite>selfhost_client</cite> logger:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">logging</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;selfhost_client&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s1">&#39;selfhost_client&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
