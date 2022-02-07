@@ -93,7 +93,7 @@
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.uuid">
 <span class="sig-name descname"><span class="pre">uuid</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.uuid" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>Unique identifier of the program.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -104,7 +104,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.name">
 <span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.name" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>The name of the program.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -115,7 +115,11 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.type">
 <span class="sig-name descname"><span class="pre">type</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.type" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><ul class="simple">
+<li><p>module: Modules are used by Routines and Webhooks to extend their functionality.</p></li>
+<li><p>routine: Routines are executed at an interval.</p></li>
+<li><p>webhook: Webhooks are called using the REST API.</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -126,7 +130,12 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.state">
 <span class="sig-name descname"><span class="pre">state</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.state" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>The state of the program.</p>
+<ul class="simple">
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>failed</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -137,7 +146,8 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.schedule">
 <span class="sig-name descname"><span class="pre">schedule</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.schedule" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>A CRON schedule on the typical CRON format, yet with support for seconds.
+Ignored for Modules and Webhooks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -148,7 +158,8 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.deadline">
 <span class="sig-name descname"><span class="pre">deadline</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.deadline" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>An duration (in milliseconds) after which a Program (routine, webhook)
+shall terminate, to avoid long running programs. Ignored for Modules.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>int</p>
@@ -159,7 +170,9 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.language">
 <span class="sig-name descname"><span class="pre">language</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.language" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><ul class="simple">
+<li><p>tengo</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -170,7 +183,7 @@
 <dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.program_types.ProgramType.tags">
 <span class="sig-name descname"><span class="pre">tags</span></span><a class="headerlink" href="#selfhost_client.types.program_types.ProgramType.tags" title="Permalink to this definition"></a></dt>
-<dd><p>TODO</p>
+<dd><p>A list of tags pinned to the program.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>List[str]</p>

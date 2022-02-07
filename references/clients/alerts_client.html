@@ -127,16 +127,37 @@ The access key is the password in this case.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>str</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>str</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>str</em>) – Alert event</p></li>
 <li><p><strong>value</strong> (<em>str</em>) – TODO</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>origin</strong> (<em>str</em>) – Alert origin</p></li>
+<li><p><strong>severity</strong> (<em>str</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
 <li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned on the alert.</p></li>
 <li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
 <li><p><strong>rawdata</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Base64 encoded</p></li>
 </ul>
@@ -213,16 +234,39 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>limit</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The numbers of items to return.</p></li>
 <li><p><strong>offset</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of items to skip before starting to collect the result set.</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity_le</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity_ge</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert event</p></li>
+<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert origin</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
+<li><p><strong>severity_le</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert severity LessOrEqual to.
+Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate</p></li>
+<li><p><strong>severity_ge</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert severity GreaterOrEqual to.
+Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate</p></li>
+<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned to the alert.</p></li>
+<li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Array of services to match on.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -249,16 +293,37 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>alert_uuid</strong> (<em>str</em>) – UUID of alert to update.</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert event</p></li>
 <li><p><strong>value</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
 <li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert origin</p></li>
+<li><p><strong>severity</strong> (<em>str</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
 <li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned on the alert.</p></li>
 <li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
 <li><p><strong>rawdata</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Base64 encoded</p></li>
 </ul>

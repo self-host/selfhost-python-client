@@ -128,12 +128,28 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the program</p></li>
-<li><p><strong>program_type</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags associated with the program</p></li>
+<li><p><strong>program_type</strong> (<em>str</em>) – <ul>
+<li><p>module: Modules are used by Routines and Webhooks to extend their functionality.</p></li>
+<li><p>routine: Routines are executed at an interval.</p></li>
+<li><p>webhook: Webhooks are called using the REST API.</p></li>
+</ul>
+</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the program.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>failed</p></li>
+</ul>
+</p></li>
+<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A CRON schedule on the typical CRON format, yet with support for seconds.
+Ignored for Modules and Webhooks.</p></li>
+<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – An duration (in milliseconds) after which a Program (routine, webhook)
+shall terminate, to avoid long running programs. Ignored for Modules.</p></li>
+<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>tengo</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned to the program</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -236,12 +252,28 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>program_uuid</strong> (<em>str</em>) – UUID of program to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the program</p></li>
-<li><p><strong>program_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>program_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>module: Modules are used by Routines and Webhooks to extend their functionality.</p></li>
+<li><p>routine: Routines are executed at an interval.</p></li>
+<li><p>webhook: Webhooks are called using the REST API.</p></li>
+</ul>
+</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the program.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>failed</p></li>
+</ul>
+</p></li>
+<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A CRON schedule on the typical CRON format, yet with support for seconds.
+Ignored for Modules and Webhooks.</p></li>
+<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – An duration (in milliseconds) after which a Program (routine, webhook)
+shall terminate, to avoid long running programs. Ignored for Modules.</p></li>
+<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>tengo</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned to the program</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>

@@ -127,16 +127,37 @@ The access key is the password in this case.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>resource</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>str</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>str</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>str</em>) – Alert event</p></li>
 <li><p><strong>value</strong> (<em>str</em>) – TODO</p></li>
 <li><p><strong>description</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>origin</strong> (<em>str</em>) – Alert origin</p></li>
+<li><p><strong>severity</strong> (<em>str</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
 <li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned on the alert.</p></li>
 <li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
 <li><p><strong>rawdata</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Base64 encoded</p></li>
 </ul>
@@ -164,11 +185,11 @@ The access key is the password in this case.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em>) – The name of the dataset</p></li>
-<li><p><strong>dataset_format</strong> (<em>str</em>) – The format of the dataset</p></li>
-<li><p><strong>content</strong> (<em>str</em>) – The content of the dataset</p></li>
-<li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of a thing connected to the dataset</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags associated with the dataset</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – The name of the dataset.</p></li>
+<li><p><strong>dataset_format</strong> (<em>str</em>) – File format of the data set.</p></li>
+<li><p><strong>content</strong> (<em>str</em>) – The content of the resource.</p></li>
+<li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A UUID reference to a Thing as a way to track data-sets to things.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned on the dataset.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -219,10 +240,20 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_uuid</strong> (<em>str</em>) – The group to add the policy to.</p></li>
-<li><p><strong>priority</strong> (<em>int</em>) – TODO</p></li>
-<li><p><strong>effect</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>action</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>resource</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>priority</strong> (<em>int</em>) – Priority of the policy</p></li>
+<li><p><strong>effect</strong> (<em>str</em>) – <ul>
+<li><p>allow</p></li>
+<li><p>deny</p></li>
+</ul>
+</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – <ul>
+<li><p>create</p></li>
+<li><p>read</p></li>
+<li><p>update</p></li>
+<li><p>delete</p></li>
+</ul>
+</p></li>
+<li><p><strong>resource</strong> (<em>str</em>) – The type of resource the policy is assigned to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -249,12 +280,28 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the program</p></li>
-<li><p><strong>program_type</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags associated with the program</p></li>
+<li><p><strong>program_type</strong> (<em>str</em>) – <ul>
+<li><p>module: Modules are used by Routines and Webhooks to extend their functionality.</p></li>
+<li><p>routine: Routines are executed at an interval.</p></li>
+<li><p>webhook: Webhooks are called using the REST API.</p></li>
+</ul>
+</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the program.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>failed</p></li>
+</ul>
+</p></li>
+<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A CRON schedule on the typical CRON format, yet with support for seconds.
+Ignored for Modules and Webhooks.</p></li>
+<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – An duration (in milliseconds) after which a Program (routine, webhook)
+shall terminate, to avoid long running programs. Ignored for Modules.</p></li>
+<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>tengo</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned to the program</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -309,11 +356,11 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the timeseries</p></li>
-<li><p><strong>si_unit</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>si_unit</strong> (<em>str</em>) – The SI unit assigned to this timeseries</p></li>
 <li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of the thing associated to this timeseries</p></li>
-<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The lower bound of a time series.</p></li>
+<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The upper bound of a time series.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the timeseries.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -341,10 +388,7 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
-<li><p><strong>data_points</strong> (<em>List</em><em>[</em><a class="reference internal" href="../types/timeseries_types.html#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="selfhost_client.types.timeseries_types.TimeseriesDataPointType"><em>TimeseriesDataPointType</em></a><em>]</em>) – <p>A list of dicts with the following parameters:</p>
-<p>v (float): TODO</p>
-<p>ts (datetime str): TODO</p>
-</p></li>
+<li><p><strong>data_points</strong> (<em>List</em><em>[</em><a class="reference internal" href="../types/timeseries_types.html#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="selfhost_client.types.timeseries_types.TimeseriesDataPointType"><em>TimeseriesDataPointType</em></a><em>]</em>) – A list of data points.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -576,9 +620,9 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 </ul>
@@ -678,16 +722,39 @@ Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>limit</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The numbers of items to return.</p></li>
 <li><p><strong>offset</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The number of items to skip before starting to collect the result set.</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity_le</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity_ge</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert event</p></li>
+<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert origin</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
+<li><p><strong>severity_le</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert severity LessOrEqual to.
+Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate</p></li>
+<li><p><strong>severity_ge</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert severity GreaterOrEqual to.
+Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate</p></li>
+<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned to the alert.</p></li>
+<li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Array of services to match on.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -866,18 +933,28 @@ Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uuids</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – A series of timeseries UUIDs to search for.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>unit</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 <li><p><strong>precision</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – Truncate all timestamps and perform aggregate operations on the grouping.
 Available values : microseconds, milliseconds, second, minute, minute5, minute10,
 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia</p></li>
-<li><p><strong>aggregate</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – When using precision. Select this aggregate function instead of the default avg
+<li><p><strong>aggregate</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – <p>When using precision. Select this aggregate function instead of the default avg
 when computing the result. Does nothing when precision is not set.
-Available values : avg, min, max, sum, count</p></li>
+Available values:</p>
+<blockquote>
+<div><ul>
+<li><p>avg</p></li>
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>sum</p></li>
+<li><p>count</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 <li><p><strong>timezone</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – Act as this time zone. Defaults to UTC.</p></li>
 </ul>
 </dd>
@@ -1189,18 +1266,28 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 <li><p><strong>precision</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Truncate all timestamps and perform aggregate operations on the grouping.
 Available values : microseconds, milliseconds, second, minute, minute5, minute10,
 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia</p></li>
-<li><p><strong>aggregate</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – When using precision. Select this aggregate function instead of the default avg
+<li><p><strong>aggregate</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>When using precision. Select this aggregate function instead of the default avg
 when computing the result. Does nothing when precision is not set.
-Available values : avg, min, max, sum, count</p></li>
+Available values:</p>
+<blockquote>
+<div><ul>
+<li><p>avg</p></li>
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>sum</p></li>
+<li><p>count</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 <li><p><strong>timezone</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Act as this time zone. Defaults to UTC.</p></li>
 </ul>
 </dd>
@@ -1331,16 +1418,37 @@ Available values : avg, min, max, sum, count</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>alert_uuid</strong> (<em>str</em>) – UUID of alert to update.</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert resource</p></li>
+<li><p><strong>environment</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert environment</p></li>
+<li><p><strong>event</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert event</p></li>
 <li><p><strong>value</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
 <li><p><strong>description</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>severity</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>origin</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Alert origin</p></li>
+<li><p><strong>severity</strong> (<em>str</em>) – <p>The severity of the alert.</p>
+<ul>
+<li><p>security</p></li>
+<li><p>critical</p></li>
+<li><p>major</p></li>
+<li><p>minor</p></li>
+<li><p>warning</p></li>
+<li><p>informational</p></li>
+<li><p>debug</p></li>
+<li><p>trace</p></li>
+<li><p>indeterminate</p></li>
+</ul>
+</p></li>
+<li><p><strong>status</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>Alert status</p>
+<ul>
+<li><p>open</p></li>
+<li><p>close</p></li>
+<li><p>expire</p></li>
+<li><p>shelve</p></li>
+<li><p>acknowledge</p></li>
+<li><p>unknown</p></li>
+</ul>
+</p></li>
 <li><p><strong>service</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – List of tags pinned on the alert.</p></li>
 <li><p><strong>timeout</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
 <li><p><strong>rawdata</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Base64 encoded</p></li>
 </ul>
@@ -1369,11 +1477,11 @@ Available values : avg, min, max, sum, count</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dataset_uuid</strong> (<em>str</em>) – UUID of dataset to update.</p></li>
-<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the dataset</p></li>
-<li><p><strong>dataset_format</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The format of the dataset</p></li>
-<li><p><strong>content</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The content of the dataset</p></li>
-<li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUid of a thing connected to the dataset</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags associated with the dataset</p></li>
+<li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the dataset.</p></li>
+<li><p><strong>dataset_format</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – File format of the data set.</p></li>
+<li><p><strong>content</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The content of the resource.</p></li>
+<li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A UUID reference to a Thing as a way to track data-sets to things.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned on the dataset.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1426,10 +1534,20 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>policy_uuid</strong> (<em>str</em>) – UUID of policy to update.</p></li>
 <li><p><strong>group_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The group to add the policy to.</p></li>
-<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>effect</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>action</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Priority of the policy</p></li>
+<li><p><strong>effect</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>allow</p></li>
+<li><p>deny</p></li>
+</ul>
+</p></li>
+<li><p><strong>action</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>create</p></li>
+<li><p>read</p></li>
+<li><p>update</p></li>
+<li><p>delete</p></li>
+</ul>
+</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The type of resource the policy is assigned to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1457,12 +1575,28 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>program_uuid</strong> (<em>str</em>) – UUID of program to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the program</p></li>
-<li><p><strong>program_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>program_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>module: Modules are used by Routines and Webhooks to extend their functionality.</p></li>
+<li><p>routine: Routines are executed at an interval.</p></li>
+<li><p>webhook: Webhooks are called using the REST API.</p></li>
+</ul>
+</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the program.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>failed</p></li>
+</ul>
+</p></li>
+<li><p><strong>schedule</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – A CRON schedule on the typical CRON format, yet with support for seconds.
+Ignored for Modules and Webhooks.</p></li>
+<li><p><strong>deadline</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – An duration (in milliseconds) after which a Program (routine, webhook)
+shall terminate, to avoid long running programs. Ignored for Modules.</p></li>
+<li><p><strong>language</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>tengo</p></li>
+</ul>
+</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – A list of tags pinned to the program</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -1488,8 +1622,15 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>thing_uuid</strong> (<em>str</em>) – UUID of thing to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the thing</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The state of the thing</p></li>
-<li><p><strong>thing_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The type of the thing</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the thing.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>passive</p></li>
+<li><p>archived</p></li>
+</ul>
+</p></li>
+<li><p><strong>thing_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Thing type declaration</p></li>
 <li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the thing</p></li>
 </ul>
 </dd>
@@ -1516,11 +1657,11 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the user</p></li>
-<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit assigned to this timeseries</p></li>
 <li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of the thing associated to this timeseries</p></li>
-<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the thing</p></li>
+<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The lower bound of a time series.</p></li>
+<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The upper bound of a time series.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on this timeseries</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>

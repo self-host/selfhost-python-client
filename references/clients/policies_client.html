@@ -128,10 +128,20 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>group_uuid</strong> (<em>str</em>) – The group to add the policy to.</p></li>
-<li><p><strong>priority</strong> (<em>int</em>) – TODO</p></li>
-<li><p><strong>effect</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>action</strong> (<em>str</em>) – TODO</p></li>
-<li><p><strong>resource</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>priority</strong> (<em>int</em>) – Priority of the policy</p></li>
+<li><p><strong>effect</strong> (<em>str</em>) – <ul>
+<li><p>allow</p></li>
+<li><p>deny</p></li>
+</ul>
+</p></li>
+<li><p><strong>action</strong> (<em>str</em>) – <ul>
+<li><p>create</p></li>
+<li><p>read</p></li>
+<li><p>update</p></li>
+<li><p>delete</p></li>
+</ul>
+</p></li>
+<li><p><strong>resource</strong> (<em>str</em>) – The type of resource the policy is assigned to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -234,10 +244,20 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>policy_uuid</strong> (<em>str</em>) – UUID of policy to update.</p></li>
 <li><p><strong>group_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The group to add the policy to.</p></li>
-<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>effect</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>action</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
-<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>priority</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Priority of the policy</p></li>
+<li><p><strong>effect</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>allow</p></li>
+<li><p>deny</p></li>
+</ul>
+</p></li>
+<li><p><strong>action</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <ul>
+<li><p>create</p></li>
+<li><p>read</p></li>
+<li><p>update</p></li>
+<li><p>delete</p></li>
+</ul>
+</p></li>
+<li><p><strong>resource</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The type of resource the policy is assigned to.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>

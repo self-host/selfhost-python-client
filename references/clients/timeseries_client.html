@@ -128,11 +128,11 @@ The access key is the password in this case.</p></li>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the timeseries</p></li>
-<li><p><strong>si_unit</strong> (<em>str</em>) – TODO</p></li>
+<li><p><strong>si_unit</strong> (<em>str</em>) – The SI unit assigned to this timeseries</p></li>
 <li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of the thing associated to this timeseries</p></li>
-<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – TODO</p></li>
+<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The lower bound of a time series.</p></li>
+<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The upper bound of a time series.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the timeseries.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -160,10 +160,7 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
-<li><p><strong>data_points</strong> (<em>List</em><em>[</em><a class="reference internal" href="../types/timeseries_types.html#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="selfhost_client.types.timeseries_types.TimeseriesDataPointType"><em>TimeseriesDataPointType</em></a><em>]</em>) – <p>A list of dicts with the following parameters:</p>
-<p>v (float): TODO</p>
-<p>ts (datetime str): TODO</p>
-</p></li>
+<li><p><strong>data_points</strong> (<em>List</em><em>[</em><a class="reference internal" href="../types/timeseries_types.html#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="selfhost_client.types.timeseries_types.TimeseriesDataPointType"><em>TimeseriesDataPointType</em></a><em>]</em>) – A list of data points.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>
@@ -211,9 +208,9 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 </ul>
@@ -241,18 +238,28 @@ Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>uuids</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – A series of timeseries UUIDs to search for.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>unit</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 <li><p><strong>precision</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – Truncate all timestamps and perform aggregate operations on the grouping.
 Available values : microseconds, milliseconds, second, minute, minute5, minute10,
 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia</p></li>
-<li><p><strong>aggregate</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – When using precision. Select this aggregate function instead of the default avg
+<li><p><strong>aggregate</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – <p>When using precision. Select this aggregate function instead of the default avg
 when computing the result. Does nothing when precision is not set.
-Available values : avg, min, max, sum, count</p></li>
+Available values:</p>
+<blockquote>
+<div><ul>
+<li><p>avg</p></li>
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>sum</p></li>
+<li><p>count</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 <li><p><strong>timezone</strong> (<em>optional</em><em>[</em><em>str</em><em>]</em>) – Act as this time zone. Defaults to UTC.</p></li>
 </ul>
 </dd>
@@ -335,18 +342,28 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to query.</p></li>
 <li><p><strong>start</strong> (<em>datetime str</em>) – Start (&gt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>end</strong> (<em>datetime str</em>) – End (&lt;=) of time period. The period (start to end) can not exceed 1 year.
-Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm</p></li>
+Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)</p></li>
 <li><p><strong>unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit of the result. A cast will occur if the base unit differs.</p></li>
 <li><p><strong>ge</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be greater or equal to (&gt;=) this.</p></li>
 <li><p><strong>le</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – Value should be less or equal to (&lt;=) this.</p></li>
 <li><p><strong>precision</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Truncate all timestamps and perform aggregate operations on the grouping.
 Available values : microseconds, milliseconds, second, minute, minute5, minute10,
 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia</p></li>
-<li><p><strong>aggregate</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – When using precision. Select this aggregate function instead of the default avg
+<li><p><strong>aggregate</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>When using precision. Select this aggregate function instead of the default avg
 when computing the result. Does nothing when precision is not set.
-Available values : avg, min, max, sum, count</p></li>
+Available values:</p>
+<blockquote>
+<div><ul>
+<li><p>avg</p></li>
+<li><p>min</p></li>
+<li><p>max</p></li>
+<li><p>sum</p></li>
+<li><p>count</p></li>
+</ul>
+</div></blockquote>
+</p></li>
 <li><p><strong>timezone</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Act as this time zone. Defaults to UTC.</p></li>
 </ul>
 </dd>
@@ -376,11 +393,11 @@ Available values : avg, min, max, sum, count</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>timeseries_uuid</strong> (<em>str</em>) – UUID of timeseries to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the user</p></li>
-<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – TODO</p></li>
+<li><p><strong>si_unit</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The SI unit assigned to this timeseries</p></li>
 <li><p><strong>thing_uuid</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – UUID of the thing associated to this timeseries</p></li>
-<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – TODO</p></li>
-<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the thing</p></li>
+<li><p><strong>lower_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The lower bound of a time series.</p></li>
+<li><p><strong>upper_bound</strong> (<em>Optional</em><em>[</em><em>int</em><em>]</em>) – The upper bound of a time series.</p></li>
+<li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on this timeseries</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises</dt>

@@ -282,8 +282,15 @@ The access key is the password in this case.</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>thing_uuid</strong> (<em>str</em>) – UUID of thing to update.</p></li>
 <li><p><strong>name</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The name of the thing</p></li>
-<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The state of the thing</p></li>
-<li><p><strong>thing_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – The type of the thing</p></li>
+<li><p><strong>state</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – <p>The state of the thing.</p>
+<ul>
+<li><p>active</p></li>
+<li><p>inactive</p></li>
+<li><p>passive</p></li>
+<li><p>archived</p></li>
+</ul>
+</p></li>
+<li><p><strong>thing_type</strong> (<em>Optional</em><em>[</em><em>str</em><em>]</em>) – Thing type declaration</p></li>
 <li><p><strong>tags</strong> (<em>Optional</em><em>[</em><em>List</em><em>[</em><em>str</em><em>]</em><em>]</em>) – Tags pinned on the thing</p></li>
 </ul>
 </dd>
