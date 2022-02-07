@@ -37,16 +37,50 @@ class AlertsClient(BaseClient):
         Args:
             limit (Optional[int]): The numbers of items to return.
             offset (Optional[int]): The number of items to skip before starting to collect the result set.
-            resource (Optional[str]): TODO
-            environment (Optional[str]): TODO
-            event (Optional[str]): TODO
-            origin (Optional[str]): TODO
-            status (Optional[str]): TODO
-            severity_le (Optional[str]): TODO
-            severity_ge (Optional[str]): TODO
-            severity (Optional[str]): TODO
-            tags (Optional[List[str]]): TODO
-            service (Optional[List[str]]): TODO
+            resource (Optional[str]): Alert resource
+            environment (Optional[str]): Alert environment
+            event (Optional[str]): Alert event
+            origin (Optional[str]): Alert origin
+            status (Optional[str]): Alert status
+
+                -   open
+
+                -   close
+
+                -   expire
+
+                -   shelve
+
+                -   acknowledge
+
+                -   unknown
+
+            severity_le (Optional[str]): Alert severity LessOrEqual to.
+                Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate
+            severity_ge (Optional[str]): Alert severity GreaterOrEqual to.
+                Available values : security, critical, major, minor, warning, informational, debug, trace, indeterminate
+            severity (Optional[str]): The severity of the alert.
+
+                -   security
+
+                -   critical
+
+                -   major
+
+                -   minor
+
+                -   warning
+
+                -   informational
+
+                -   debug
+
+                -   trace
+
+                -   indeterminate
+
+            tags (Optional[List[str]]): List of tags pinned to the alert.
+            service (Optional[List[str]]): Array of services to match on.
 
         Returns:
             List[:class:`.AlertType`]
@@ -95,16 +129,48 @@ class AlertsClient(BaseClient):
         """Add a new alert to the NODA Self-host API
 
         Args:
-            resource (str): TODO
-            environment (str): TODO
-            event (str): TODO
+            resource (str): Alert resource
+            environment (str): Alert environment
+            event (str): Alert event
             value (str): TODO
             description (str): TODO
-            origin (str): TODO
-            severity (str): TODO
-            status (Optional[str]): TODO
+            origin (str): Alert origin
+            severity (str): The severity of the alert.
+
+                -   security
+
+                -   critical
+
+                -   major
+
+                -   minor
+
+                -   warning
+
+                -   informational
+
+                -   debug
+
+                -   trace
+
+                -   indeterminate
+
+            status (Optional[str]): Alert status
+
+                -   open
+
+                -   close
+
+                -   expire
+
+                -   shelve
+
+                -   acknowledge
+
+                -   unknown
+
             service (Optional[List[str]]): TODO
-            tags (Optional[List[str]]): TODO
+            tags (Optional[List[str]]): List of tags pinned on the alert.
             timeout (Optional[int]): TODO
             rawdata (Optional[str]): Base64 encoded
 
@@ -180,16 +246,48 @@ class AlertsClient(BaseClient):
 
         Args:
             alert_uuid (str): UUID of alert to update.
-            resource (Optional[str]): TODO
-            environment (Optional[str]): TODO
-            event (Optional[str]): TODO
+            resource (Optional[str]): Alert resource
+            environment (Optional[str]): Alert environment
+            event (Optional[str]): Alert event
             value (Optional[str]): TODO
             description (Optional[str]): TODO
-            origin (Optional[str]): TODO
-            severity (Optional[str]): TODO
-            status (Optional[str]): TODO
+            origin (Optional[str]): Alert origin
+            severity (str): The severity of the alert.
+
+                -   security
+
+                -   critical
+
+                -   major
+
+                -   minor
+
+                -   warning
+
+                -   informational
+
+                -   debug
+
+                -   trace
+
+                -   indeterminate
+
+            status (Optional[str]): Alert status
+
+                -   open
+
+                -   close
+
+                -   expire
+
+                -   shelve
+
+                -   acknowledge
+
+                -   unknown
+
             service (Optional[List[str]]): TODO
-            tags (Optional[List[str]]): TODO
+            tags (Optional[List[str]]): List of tags pinned on the alert.
             timeout (Optional[int]): TODO
             rawdata (Optional[str]): Base64 encoded
 

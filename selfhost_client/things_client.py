@@ -121,8 +121,17 @@ class ThingsClient(BaseClient):
         Args:
             thing_uuid (str): UUID of thing to update.
             name (Optional[str]): The name of the thing
-            state (Optional[str]): The state of the thing
-            thing_type (Optional[str]): The type of the thing
+            state (Optional[str]): The state of the thing.
+
+                -   active
+
+                -   inactive
+
+                -   passive
+
+                -   archived
+
+            thing_type (Optional[str]): Thing type declaration
             tags (Optional[List[str]]): Tags pinned on the thing
 
         Raises:

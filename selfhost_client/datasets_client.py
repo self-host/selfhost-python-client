@@ -55,11 +55,11 @@ class DatasetsClient(BaseClient):
         """Add a new dataset to the NODA Self-host API
 
         Args:
-            name (str): The name of the dataset
-            dataset_format (str): The format of the dataset
-            content (str): The content of the dataset
-            thing_uuid (Optional[str]): UUID of a thing connected to the dataset
-            tags (Optional[List[str]]): A list of tags associated with the dataset
+            name (str): The name of the dataset.
+            dataset_format (str): File format of the data set.
+            content (str): The content of the resource.
+            thing_uuid (Optional[str]): A UUID reference to a Thing as a way to track data-sets to things.
+            tags (Optional[List[str]]): A list of tags pinned on the dataset.
 
         Returns:
             :class:`.DatasetType`
@@ -119,11 +119,11 @@ class DatasetsClient(BaseClient):
 
         Args:
             dataset_uuid (str): UUID of dataset to update.
-            name (Optional[str]): The name of the dataset
-            dataset_format (Optional[str]): The format of the dataset
-            content (Optional[str]): The content of the dataset
-            thing_uuid (Optional[str]): UUid of a thing connected to the dataset
-            tags (Optional[List[str]]): A list of tags associated with the dataset
+            name (Optional[str]): The name of the dataset.
+            dataset_format (Optional[str]): File format of the data set.
+            content (Optional[str]): The content of the resource.
+            thing_uuid (Optional[str]): A UUID reference to a Thing as a way to track data-sets to things.
+            tags (Optional[List[str]]): A list of tags pinned on the dataset.
 
         Raises:
             :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.

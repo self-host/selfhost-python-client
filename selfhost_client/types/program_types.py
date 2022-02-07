@@ -9,14 +9,33 @@ except ImportError:
 class ProgramType(TypedDict):
     """
     Attributes:
-        uuid: TODO
-        name: TODO
-        type: TODO
-        state: TODO
-        schedule: TODO
-        deadline: TODO
-        language: TODO
-        tags: TODO
+        uuid: Unique identifier of the program.
+        name: The name of the program.
+        type:
+
+            -   module: Modules are used by Routines and Webhooks to extend their functionality.
+
+            -   routine: Routines are executed at an interval.
+
+            -   webhook: Webhooks are called using the REST API.
+
+        state: The state of the program.
+
+            -   active
+
+            -   inactive
+
+            -   failed
+
+        schedule: A CRON schedule on the typical CRON format, yet with support for seconds.
+            Ignored for Modules and Webhooks.
+        deadline: An duration (in milliseconds) after which a Program (routine, webhook)
+            shall terminate, to avoid long running programs. Ignored for Modules.
+        language:
+
+            -   tengo
+
+        tags: A list of tags pinned to the program.
 
     Example::
 

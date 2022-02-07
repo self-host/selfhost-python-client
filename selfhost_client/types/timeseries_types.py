@@ -10,13 +10,13 @@ class TimeseriesType(TypedDict):
     """
     Attributes:
         uuid: The unique identifier for this timeseries.
-        thing_uuid: TODO
-        created_by: TODO
-        name: TODO
-        si_unit: TODO
-        lower_bound: TODO
-        upper_bound: TODO
-        tags: TODO
+        thing_uuid: Reference to a thing
+        created_by: Reference to the user who created this timeseries.
+        name: The name of the timeseries
+        si_unit: The SI unit assigned to this timeseries
+        lower_bound: The lower bound of a time series.
+        upper_bound: The upper bound of a time series.
+        tags: List of tags pinned to the timeseries.
 
     Example::
 
@@ -48,8 +48,8 @@ class TimeseriesType(TypedDict):
 class TimeseriesDataPointType(TypedDict):
     """
     Attributes:
-        v: TODO
-        ts: TODO
+        v: Value of the data point.
+        ts: Date-time when created, as defined by RFC 3339, section 5.6.
 
     Example::
 

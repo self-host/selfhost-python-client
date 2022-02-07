@@ -64,12 +64,31 @@ class ProgramsClient(BaseClient):
 
         Args:
             name (str): The name of the program
-            program_type (str): TODO
-            state (Optional[str]): TODO
-            schedule (Optional[str]): TODO
-            deadline (Optional[int]): TODO
-            language (Optional[str]): TODO
-            tags (Optional[List[str]]): A list of tags associated with the program
+            program_type (str):
+
+                -   module: Modules are used by Routines and Webhooks to extend their functionality.
+
+                -   routine: Routines are executed at an interval.
+
+                -   webhook: Webhooks are called using the REST API.
+
+            state (Optional[str]): The state of the program.
+
+                -   active
+
+                -   inactive
+
+                -   failed
+
+            schedule (Optional[str]): A CRON schedule on the typical CRON format, yet with support for seconds.
+                Ignored for Modules and Webhooks.
+            deadline (Optional[int]): An duration (in milliseconds) after which a Program (routine, webhook)
+                shall terminate, to avoid long running programs. Ignored for Modules.
+            language (Optional[str]):
+
+                -   tengo
+
+            tags (Optional[List[str]]): A list of tags pinned to the program
 
         Returns:
             :class:`.ProgramType`
@@ -134,12 +153,31 @@ class ProgramsClient(BaseClient):
         Args:
             program_uuid (str): UUID of program to update.
             name (Optional[str]): The name of the program
-            program_type (Optional[str]): TODO
-            state (Optional[str]): TODO
-            schedule (Optional[str]): TODO
-            deadline (Optional[int]): TODO
-            language (Optional[str]): TODO
-            tags (Optional[List[str]]): TODO
+            program_type (Optional[str]):
+
+                -   module: Modules are used by Routines and Webhooks to extend their functionality.
+
+                -   routine: Routines are executed at an interval.
+
+                -   webhook: Webhooks are called using the REST API.
+
+            state (Optional[str]): The state of the program.
+
+                -   active
+
+                -   inactive
+
+                -   failed
+
+            schedule (Optional[str]): A CRON schedule on the typical CRON format, yet with support for seconds.
+                Ignored for Modules and Webhooks.
+            deadline (Optional[int]): An duration (in milliseconds) after which a Program (routine, webhook)
+                shall terminate, to avoid long running programs. Ignored for Modules.
+            language (Optional[str]):
+
+                -   tengo
+
+            tags (Optional[List[str]]): A list of tags pinned to the program
 
         Raises:
             :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.

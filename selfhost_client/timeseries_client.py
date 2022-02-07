@@ -63,11 +63,11 @@ class TimeseriesClient(BaseClient):
 
         Args:
             name (str): The name of the timeseries
-            si_unit (str): TODO
+            si_unit (str): The SI unit assigned to this timeseries
             thing_uuid (Optional[str]): UUID of the thing associated to this timeseries
-            lower_bound (Optional[int]): TODO
-            upper_bound (Optional[int]): TODO
-            tags (Optional[List[str]]): TODO
+            lower_bound (Optional[int]): The lower bound of a time series.
+            upper_bound (Optional[int]): The upper bound of a time series.
+            tags (Optional[List[str]]): Tags pinned on the timeseries.
 
         Returns:
             :class:`.TimeseriesType`
@@ -130,11 +130,11 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to update.
             name (Optional[str]): The name of the user
-            si_unit (Optional[str]): TODO
+            si_unit (Optional[str]): The SI unit assigned to this timeseries
             thing_uuid (Optional[str]): UUID of the thing associated to this timeseries
-            lower_bound (Optional[int]): TODO
-            upper_bound (Optional[int]): TODO
-            tags (Optional[List[str]]): Tags pinned on the thing
+            lower_bound (Optional[int]): The lower bound of a time series.
+            upper_bound (Optional[int]): The upper bound of a time series.
+            tags (Optional[List[str]]): Tags pinned on this timeseries
 
         Raises:
             :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.
@@ -194,9 +194,9 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             unit (Optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
@@ -205,7 +205,18 @@ class TimeseriesClient(BaseClient):
                 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia
             aggregate (Optional[str]): When using precision. Select this aggregate function instead of the default avg
                 when computing the result. Does nothing when precision is not set.
-                Available values : avg, min, max, sum, count
+                Available values:
+
+                    -   avg
+
+                    -   min
+
+                    -   max
+
+                    -   sum
+
+                    -   count
+
             timezone (Optional[str]): Act as this time zone. Defaults to UTC.
 
         Returns:
@@ -245,11 +256,7 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
             unit (Optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
-            data_points (List[TimeseriesDataPointType]): A list of dicts with the following parameters:
-
-                v (float): TODO
-
-                ts (datetime str): TODO
+            data_points (List[TimeseriesDataPointType]): A list of data points.
 
         Raises:
             :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.
@@ -279,9 +286,9 @@ class TimeseriesClient(BaseClient):
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
 
@@ -321,9 +328,9 @@ class TimeseriesClient(BaseClient):
         Args:
             uuids (List[str]): A series of timeseries UUIDs to search for.
             start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm
+                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
             unit (optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (optional[int]): Value should be greater or equal to (>=) this.
             le (optional[int]): Value should be less or equal to (<=) this.
@@ -332,7 +339,18 @@ class TimeseriesClient(BaseClient):
                 minute15, minute20, minute30, hour, day, week, month, year, decade, century, millennia
             aggregate (optional[str]): When using precision. Select this aggregate function instead of the default avg
                 when computing the result. Does nothing when precision is not set.
-                Available values : avg, min, max, sum, count
+                Available values:
+
+                    -   avg
+
+                    -   min
+
+                    -   max
+
+                    -   sum
+
+                    -   count
+
             timezone (optional[str]): Act as this time zone. Defaults to UTC.
 
         Returns:

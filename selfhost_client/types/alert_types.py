@@ -24,23 +24,74 @@ class CreatedAlertResponse(TypedDict):
 class AlertType(TypedDict):
     """
     Attributes:
-        uuid: TODO
-        resource: TODO
-        environment: TODO
-        event: TODO
-        severity: TODO
-        status: TODO
+        uuid: Unique identifier for the alert.
+        resource: Alert resource
+        environment: Alert environment
+        event: Alert event
+        severity: The severity of the alert.
+
+            -   security
+
+            -   critical
+
+            -   major
+
+            -   minor
+
+            -   warning
+
+            -   informational
+
+            -   debug
+
+            -   trace
+
+            -   indeterminate
+
+        status:
+
+            -   open
+
+            -   close
+
+            -   expire
+
+            -   shelve
+
+            -   acknowledge
+
+            -   unknown
+
         service: TODO
         value: TODO
         description: TODO
-        origin: TODO
-        tags: TODO
-        created: TODO
+        origin: Alert origin
+        tags: List of tags pinned to the alert.
+        created: Date-time when created, as defined by RFC 3339, section 5.6.
         timeout: TODO
-        rawdata: TODO
+        rawdata: Base64 encoded
         duplicate: TODO
-        previous_severity: TODO
-        last_receive_time: TODO
+        previous_severity:
+
+            -   security
+
+            -   critical
+
+            -   major
+
+            -   minor
+
+            -   warning
+
+            -   informational
+
+            -   debug
+
+            -   trace
+
+            -   indeterminate
+
+        last_receive_time: Date-time string, as defined by RFC 3339, section 5.6.
 
     Example::
 

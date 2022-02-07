@@ -8,11 +8,25 @@ class PolicyType(TypedDict):
     """
     Attributes:
         uuid: The unique identifier for this policy.
-        group_uuid: TODO
-        priority: TODO
-        effect: TODO
-        action: TODO
-        resource: TODO
+        group_uuid: A uuid reference to a group.
+        priority: Priority of the policy
+        effect:
+
+            -   allow
+
+            -   deny
+
+        action:
+
+            -   create
+
+            -   read
+
+            -   update
+
+            -   delete
+
+        resource: The type of resource the policy is assigned to.
 
     Example::
 

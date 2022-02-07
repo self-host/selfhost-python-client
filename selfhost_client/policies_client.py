@@ -62,10 +62,24 @@ class PoliciesClient(BaseClient):
 
         Args:
             group_uuid (str): The group to add the policy to.
-            priority (int): TODO
-            effect (str): TODO
-            action (str): TODO
-            resource (str): TODO
+            priority (int): Priority of the policy
+            effect (str):
+
+                -   allow
+
+                -   deny
+
+            action (str):
+
+                -   create
+
+                -   read
+
+                -   update
+
+                -   delete
+
+            resource (str): The type of resource the policy is assigned to.
 
         Returns:
              :class:`.PolicyType`
@@ -126,10 +140,24 @@ class PoliciesClient(BaseClient):
         Args:
             policy_uuid (str): UUID of policy to update.
             group_uuid (Optional[str]): The group to add the policy to.
-            priority (Optional[int]): TODO
-            effect (Optional[str]): TODO
-            action (Optional[str]): TODO
-            resource (Optional[str]): TODO
+            priority (Optional[int]): Priority of the policy
+            effect (Optional[str]):
+
+                -   allow
+
+                -   deny
+
+            action (Optional[str]):
+
+                -   create
+
+                -   read
+
+                -   update
+
+                -   delete
+
+            resource (Optional[str]): The type of resource the policy is assigned to.
 
         Raises:
             :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.

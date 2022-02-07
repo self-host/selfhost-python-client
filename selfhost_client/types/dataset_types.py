@@ -10,16 +10,16 @@ class DatasetType(TypedDict):
     """
     Attributes:
         uuid: The unique identifier for this dataset.
-        name: TODO
-        format: TODO
-        checksum: TODO
-        size: TODO
-        thing_uuid: TODO
-        created: TODO
-        created_by: TODO
-        updated: TODO
-        updated_by: TODO
-        tags: TODO
+        name: Name of the resource. Does not have to be unique.
+        format: File format of the data set.
+        checksum: The sha256 checksum of the content.
+        size: The size of the content in number of bytes.
+        thing_uuid: A UUID reference to a Thing as a way to track data-sets to things.
+        created: Date-time when created, as defined by RFC 3339, section 5.6.
+        created_by: User UUID reference.
+        updated: Date-time of last change, as defined by RFC 3339, section 5.6.
+        updated_by: User UUID reference.
+        tags: Tags pinned on this dataset.
 
     Example::
 

@@ -11,10 +11,19 @@ class ThingType(TypedDict):
     Attributes:
         uuid: The unique identifier for this thing.
         name: The name of the thing.
-        state: TODO
-        type: TODO
+        state: The state of the thing.
+
+            -   active
+
+            -   inactive
+
+            -   passive
+
+            -   archived
+
+        type: Thing type declaration
         created_by: The uuid of the user who created the thing.
-        tags: TODO
+        tags: A list of tags pinned on the thing.
 
     Example::
 
