@@ -187,18 +187,3 @@ class DatasetsClient(BaseClient):
             url=f'{self._base_url}/{self._api_version}/{self._datasets_api_path}/{dataset_uuid}/raw'
         )
         return self._process_response(response)
-
-    def initialize_dataset_content_upload(self):
-        raise NotImplementedError
-
-    def upload_dataset_content_part(self):
-        raise NotImplementedError
-
-    def assemble_dataset_content_parts(self):
-        raise NotImplementedError
-
-    def get_dataset_content_parts(self):
-        raise NotImplementedError
-
-    def cancel_dataset_content_upload(self):
-        raise NotImplementedError

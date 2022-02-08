@@ -221,21 +221,3 @@ class ProgramsClient(BaseClient):
             url=f'{self._base_url}/{self._api_version}/{self._programs_api_path}/{program_uuid}'
         )
         return self._process_response(response)
-
-    def upload_code_to_program(self):
-        raise NotImplementedError
-
-    def get_program_code(self):
-        raise NotImplementedError
-
-    def get_program_code_diff(self):
-        raise NotImplementedError
-
-    def get_program_code_revisions(self):
-        raise NotImplementedError
-
-    def sign_program_code_revision(self):
-        raise NotImplementedError
-
-    def delete_program_code_revision(self):
-        raise NotImplementedError
