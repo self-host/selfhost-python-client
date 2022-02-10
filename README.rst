@@ -61,11 +61,6 @@ versions of Python installed, otherwise you must pass ``-e``.
 Requirements
 ============
 
-Dependencies
-------------
-
-`requests <https://github.com/psf/requests>`_
-
 Install requirements
 --------------------------------
 Required dependencies:
