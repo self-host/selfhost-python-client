@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -16,14 +16,18 @@ class ThingsClient(BaseClient):
     A client for handling the things section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._things_api_path = 'things'
 
     def get_things(self,
-                   limit: int = None,
-                   offset: int = None,
-                   tags: int = None
+                   limit: Optional[int] = None,
+                   offset: Optional[int] = None,
+                   tags: Optional[int] = None
                    ) -> List[ThingType]:
         """Fetches things from NODA Self-host API
 
@@ -55,8 +59,8 @@ class ThingsClient(BaseClient):
 
     def create_thing(self,
                      name: str,
-                     thing_type: str = None,
-                     tags: List[str] = None
+                     thing_type: Optional[str] = None,
+                     tags: Optional[List[str]] = None
                      ) -> ThingType:
         """Add a new thing to the NODA Self-host API
 
@@ -111,10 +115,10 @@ class ThingsClient(BaseClient):
 
     def update_thing(self,
                      thing_uuid: str,
-                     name: str = None,
-                     state: str = None,
-                     thing_type: str = None,
-                     tags: List[str] = None
+                     name: Optional[str] = None,
+                     state: Optional[str] = None,
+                     thing_type: Optional[str] = None,
+                     tags: Optional[List[str]] = None
                      ) -> None:
         """Updates a thing from NODA Self-host API
 

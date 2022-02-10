@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -14,23 +14,27 @@ class AlertsClient(BaseClient):
     A client for handling the alert section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._alerts_api_path = 'alerts'
 
     def get_alerts(self,
-                   limit: int = None,
-                   offset: int = None,
-                   resource: str = None,
-                   environment: str = None,
-                   event: str = None,
-                   origin: str = None,
-                   status: str = None,
-                   severity_le: str = None,
-                   severity_ge: str = None,
-                   severity: str = None,
-                   tags: List[str] = None,
-                   service: List[str] = None
+                   limit: Optional[int] = None,
+                   offset: Optional[int] = None,
+                   resource: Optional[str] = None,
+                   environment: Optional[str] = None,
+                   event: Optional[str] = None,
+                   origin: Optional[str] = None,
+                   status: Optional[str] = None,
+                   severity_le: Optional[str] = None,
+                   severity_ge: Optional[str] = None,
+                   severity: Optional[str] = None,
+                   tags: Optional[List[str]] = None,
+                   service: Optional[List[str]] = None
                    ) -> List[AlertType]:
         """Fetches alerts from NODA Self-host API
 
@@ -120,11 +124,11 @@ class AlertsClient(BaseClient):
                      description: str,
                      origin: str,
                      severity: str,
-                     status: str = None,
-                     service: List[str] = None,
-                     tags: List[str] = None,
-                     timeout: int = None,
-                     rawdata: str = None
+                     status: Optional[str] = None,
+                     service: Optional[List[str]] = None,
+                     tags: Optional[List[str]] = None,
+                     timeout: Optional[int] = None,
+                     rawdata: Optional[str] = None
                      ) -> CreatedAlertResponse:
         """Add a new alert to the NODA Self-host API
 
@@ -229,18 +233,18 @@ class AlertsClient(BaseClient):
 
     def update_alert(self,
                      alert_uuid: str,
-                     resource: str = None,
-                     environment: str = None,
-                     event: str = None,
-                     value: str = None,
-                     description: str = None,
-                     origin: str = None,
-                     severity: str = None,
-                     status: str = None,
-                     service: List[str] = None,
-                     tags: List[str] = None,
-                     timeout: int = None,
-                     rawdata: str = None
+                     resource: Optional[str] = None,
+                     environment: Optional[str] = None,
+                     event: Optional[str] = None,
+                     value: Optional[str] = None,
+                     description: Optional[str] = None,
+                     origin: Optional[str] = None,
+                     severity: Optional[str] = None,
+                     status: Optional[str] = None,
+                     service: Optional[List[str]] = None,
+                     tags: Optional[List[str]] = None,
+                     timeout: Optional[int] = None,
+                     rawdata: Optional[str] = None
                      ) -> None:
         """Updates an alert from NODA Self-host API
 
@@ -252,7 +256,7 @@ class AlertsClient(BaseClient):
             value (Optional[str]): TODO
             description (Optional[str]): TODO
             origin (Optional[str]): Alert origin
-            severity (str): The severity of the alert.
+            severity (Optional[str]): The severity of the alert.
 
                 -   security
 

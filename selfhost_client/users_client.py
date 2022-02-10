@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -15,11 +15,18 @@ class UsersClient(BaseClient):
     A client for handling the user section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._users_api_path = 'users'
 
-    def get_users(self, limit: int = None, offset: int = None) -> List[UserType]:
+    def get_users(self,
+                  limit: Optional[int] = None,
+                  offset: Optional[int] = None
+                  ) -> List[UserType]:
         """Fetches users from NODA Self-host API
 
         Args:
@@ -112,10 +119,10 @@ class UsersClient(BaseClient):
 
     def update_user(self,
                     user_uuid: str,
-                    name: str = None,
-                    groups: List[str] = None,
-                    groups_add: List[str] = None,
-                    groups_remove: List[str] = None
+                    name: Optional[str] = None,
+                    groups: Optional[List[str]] = None,
+                    groups_add: Optional[List[str]] = None,
+                    groups_remove: Optional[List[str]] = None
                     ) -> None:
         """Updates a user from NODA Self-host API
 

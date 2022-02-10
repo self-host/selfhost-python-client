@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -14,14 +14,18 @@ class ProgramsClient(BaseClient):
     A client for handling the program section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._programs_api_path = 'programs'
 
     def get_programs(self,
-                     limit: int = None,
-                     offset: int = None,
-                     tags: List[str] = None
+                     limit: Optional[int] = None,
+                     offset: Optional[int] = None,
+                     tags: Optional[List[str]] = None
                      ) -> List[ProgramType]:
         """Fetches programs from NODA Self-host API
 
@@ -54,11 +58,11 @@ class ProgramsClient(BaseClient):
     def create_program(self,
                        name: str,
                        program_type: str,
-                       state: str = None,
-                       schedule: str = None,
-                       deadline: int = None,
-                       language: str = None,
-                       tags: List[str] = None
+                       state: Optional[str] = None,
+                       schedule: Optional[str] = None,
+                       deadline: Optional[int] = None,
+                       language: Optional[str] = None,
+                       tags: Optional[List[str]] = None
                        ) -> ProgramType:
         """Add a new program to the NODA Self-host API
 
@@ -140,13 +144,13 @@ class ProgramsClient(BaseClient):
 
     def update_program(self,
                        program_uuid: str,
-                       name: str = None,
-                       program_type: str = None,
-                       state: str = None,
-                       schedule: str = None,
-                       deadline: int = None,
-                       language: str = None,
-                       tags: List[str] = None
+                       name: Optional[str] = None,
+                       program_type: Optional[str] = None,
+                       state: Optional[str] = None,
+                       schedule: Optional[str] = None,
+                       deadline: Optional[int] = None,
+                       language: Optional[str] = None,
+                       tags: Optional[List[str]] = None
                        ) -> None:
         """Updates a program from NODA Self-host API
 

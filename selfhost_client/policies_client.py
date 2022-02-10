@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -14,14 +14,18 @@ class PoliciesClient(BaseClient):
     A client for handling the policy section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._policies_api_path = 'policies'
 
     def get_policies(self,
-                     limit: int = None,
-                     offset: int = None,
-                     group_uuids: List[str] = None
+                     limit: Optional[int] = None,
+                     offset: Optional[int] = None,
+                     group_uuids: Optional[List[str]] = None
                      ) -> List[PolicyType]:
         """Fetches policies from NODA Self-host API
 
@@ -129,11 +133,11 @@ class PoliciesClient(BaseClient):
 
     def update_policy(self,
                       policy_uuid: str,
-                      group_uuid: str = None,
-                      priority: int = None,
-                      effect: str = None,
-                      action: str = None,
-                      resource: str = None
+                      group_uuid: Optional[str] = None,
+                      priority: Optional[int] = None,
+                      effect: Optional[str] = None,
+                      action: Optional[str] = None,
+                      resource: Optional[str] = None
                       ) -> None:
         """Updates a policy from NODA Self-host API
 

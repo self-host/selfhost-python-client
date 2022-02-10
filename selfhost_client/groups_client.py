@@ -1,5 +1,5 @@
 import requests
-from typing import List
+from typing import List, Optional
 
 from .base_client import BaseClient
 from .types.group_types import GroupType
@@ -14,11 +14,18 @@ class GroupsClient(BaseClient):
     A client for handling the group section of NODA Self-host API.
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._groups_api_path = 'groups'
 
-    def get_groups(self, limit: int = None, offset: int = None) -> List[GroupType]:
+    def get_groups(self,
+                   limit: Optional[int] = None,
+                   offset: Optional[int] = None
+                   ) -> List[GroupType]:
         """Fetches groups from NODA Self-host API
 
         Args:

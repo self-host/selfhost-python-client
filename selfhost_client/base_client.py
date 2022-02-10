@@ -30,9 +30,9 @@ class BaseClient:
     """
 
     def __init__(self,
-                 base_url: str = None,
-                 username: str = None,
-                 password: str = None
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
                  ) -> None:
         """BaseClient constructor
 

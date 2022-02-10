@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 import requests
 
@@ -14,14 +14,18 @@ class TimeseriesClient(BaseClient):
     A client for handling the timeseries section of NODA Self-host API
     """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._timeseries_api_path = 'timeseries'
 
     def get_timeseries(self,
-                       limit: int = None,
-                       offset: int = None,
-                       tags: List[str] = None
+                       limit: Optional[int] = None,
+                       offset: Optional[int] = None,
+                       tags: Optional[List[str]] = None
                        ) -> List[TimeseriesType]:
         """Fetches timeseries from NODA Self-host API
 
@@ -54,10 +58,10 @@ class TimeseriesClient(BaseClient):
     def create_timeseries(self,
                           name: str,
                           si_unit: str,
-                          thing_uuid: str = None,
-                          lower_bound: int = None,
-                          upper_bound: int = None,
-                          tags: List[str] = None
+                          thing_uuid: Optional[str] = None,
+                          lower_bound: Optional[int] = None,
+                          upper_bound: Optional[int] = None,
+                          tags: Optional[List[str]] = None
                           ) -> TimeseriesType:
         """Add a new timeseries to the NODA Self-host API
 
@@ -118,12 +122,12 @@ class TimeseriesClient(BaseClient):
 
     def update_timeseries(self,
                           timeseries_uuid: str,
-                          name: str = None,
-                          si_unit: str = None,
-                          thing_uuid: str = None,
-                          lower_bound: int = None,
-                          upper_bound: int = None,
-                          tags: List[str] = None
+                          name: Optional[str] = None,
+                          si_unit: Optional[str] = None,
+                          thing_uuid: Optional[str] = None,
+                          lower_bound: Optional[int] = None,
+                          upper_bound: Optional[int] = None,
+                          tags: Optional[List[str]] = None
                           ) -> None:
         """Updates a timeseries from NODA Self-host API
 
@@ -182,12 +186,12 @@ class TimeseriesClient(BaseClient):
                             timeseries_uuid: str,
                             start: str,
                             end: str,
-                            unit: str = None,
-                            ge: int = None,
-                            le: int = None,
-                            precision: str = None,
-                            aggregate: str = None,
-                            timezone: str = None
+                            unit: Optional[str] = None,
+                            ge: Optional[int] = None,
+                            le: Optional[int] = None,
+                            precision: Optional[str] = None,
+                            aggregate: Optional[str] = None,
+                            timezone: Optional[str] = None
                             ) -> List[TimeseriesDataPointType]:
         """Fetch a range of timeseries data from NODA Self-host API
 
@@ -249,7 +253,7 @@ class TimeseriesClient(BaseClient):
     def create_timeseries_data(self,
                                timeseries_uuid: str,
                                data_points: List[TimeseriesDataPointType],
-                               unit: str = None
+                               unit: Optional[str] = None
                                ) -> None:
         """Add data points to a timeseries from NODA Self-host API
 
@@ -278,8 +282,8 @@ class TimeseriesClient(BaseClient):
                                timeseries_uuid: str,
                                start: str,
                                end: str,
-                               ge: int = None,
-                               le: int = None
+                               ge: Optional[int] = None,
+                               le: Optional[int] = None
                                ) -> None:
         """Delete a range of timeseries data from NODA Self-host API
 
@@ -316,12 +320,12 @@ class TimeseriesClient(BaseClient):
                                      uuids: List[str],
                                      start: str,
                                      end: str,
-                                     unit: str = None,
-                                     ge: int = None,
-                                     le: int = None,
-                                     precision: str = None,
-                                     aggregate: str = None,
-                                     timezone: str = None
+                                     unit: Optional[str] = None,
+                                     ge: Optional[int] = None,
+                                     le: Optional[int] = None,
+                                     precision: Optional[str] = None,
+                                     aggregate: Optional[str] = None,
+                                     timezone: Optional[str] = None
                                      ) -> List[TimeseriesDataType]:
         """Fetch multiple ranges of timeseries data from NODA Self-host API
 

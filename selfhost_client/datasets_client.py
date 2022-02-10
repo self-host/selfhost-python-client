@@ -1,4 +1,4 @@
-from typing import List, Any
+from typing import List, Any, Optional
 
 import requests
 
@@ -14,11 +14,18 @@ class DatasetsClient(BaseClient):
         A client for handling the dataset section of NODA Self-host API
         """
 
-    def __init__(self, base_url: str = None, username: str = None, password: str = None):
+    def __init__(self,
+                 base_url: Optional[str] = None,
+                 username: Optional[str] = None,
+                 password: Optional[str] = None
+                 ) -> None:
         super().__init__(base_url, username, password)
         self._datasets_api_path = 'datasets'
 
-    def get_datasets(self, limit: int = None, offset: int = None) -> List[DatasetType]:
+    def get_datasets(self,
+                     limit: Optional[int] = None,
+                     offset: Optional[int] = None
+                     ) -> List[DatasetType]:
         """Fetches datasets from NODA Self-host API
 
         Args:
@@ -49,8 +56,8 @@ class DatasetsClient(BaseClient):
                        name: str,
                        dataset_format: str,
                        content: str,
-                       thing_uuid: str = None,
-                       tags: str = None
+                       thing_uuid: Optional[str] = None,
+                       tags: Optional[str] = None
                        ) -> DatasetType:
         """Add a new dataset to the NODA Self-host API
 
@@ -109,11 +116,11 @@ class DatasetsClient(BaseClient):
 
     def update_dataset(self,
                        dataset_uuid: str,
-                       name: str = None,
-                       dataset_format: str = None,
-                       content: str = None,
-                       thing_uuid: str = None,
-                       tags: List[str] = None
+                       name: Optional[str] = None,
+                       dataset_format: Optional[str] = None,
+                       content: Optional[str] = None,
+                       thing_uuid: Optional[str] = None,
+                       tags: Optional[List[str]] = None
                        ) -> None:
         """Updates a dataset from NODA Self-host API
 
