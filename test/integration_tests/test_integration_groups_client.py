@@ -33,7 +33,7 @@ class TestIntegrationGroupsClient(unittest.TestCase):
         groups: List[GroupType] = self.client.get_groups(**params)
         self.assertIsNotNone(groups)
 
-    def test_create_and_delete_groups(self) -> None:
+    def test_create_and_delete_group(self) -> None:
         # Create and delete happens in setup and teardown methods.
         self.assertEqual(self.created_group['name'], self.unique_name)
 
