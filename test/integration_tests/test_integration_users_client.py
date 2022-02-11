@@ -18,16 +18,12 @@ class TestIntegrationUsersClient(unittest.TestCase):
             username='test',
             password='root'
         )
-        unique_name: str = str(uuid.uuid4())
-        params: Dict[str, str] = {
-            'name': unique_name,
-        }
-        cls.created_user: UserType = cls.client.create_user(**params)
+        cls.unique_name: str = str(uuid.uuid4())
+        cls.created_user: UserType = cls.client.create_user(name=cls.unique_name)
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.client.delete_user(cls.created_user['uuid'])
-        pass
 
     def test_get_users(self) -> None:
         params: Dict[str, int] = {
@@ -35,16 +31,11 @@ class TestIntegrationUsersClient(unittest.TestCase):
             'offset': 0
         }
         users: List[UserType] = self.client.get_users(**params)
-        self.assertEqual(len(users), 2)  # Own user and the created user in setUpClass
+        self.assertIsNotNone(users)
 
     def test_create_and_delete_user(self) -> None:
-        unique_name: str = str(uuid.uuid4())
-        params: Dict[str, str] = {
-            'name': unique_name,
-        }
-        created_user: UserType = self.client.create_user(**params)
-        self.assertEqual(created_user['name'], unique_name)
-        self.client.delete_user(created_user['uuid'])
+        # Create and delete happens in setup and teardown methods.
+        self.assertEqual(self.created_user['name'], self.unique_name)
 
     def test_get_my_user(self) -> None:
         my_user: UserType = self.client.get_my_user()
@@ -76,7 +67,7 @@ class TestIntegrationUsersClient(unittest.TestCase):
 
         # Get
         user_tokens: List[UserTokenType] = self.client.get_user_tokens(self.created_user['uuid'])
-        self.assertEqual(len(user_tokens), 1)
+        self.assertIsNotNone(user_tokens)
 
         # Delete
         self.client.delete_user_token(self.created_user['uuid'], created_user_token['uuid'])
