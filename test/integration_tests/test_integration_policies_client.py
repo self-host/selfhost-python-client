@@ -40,7 +40,7 @@ class TestIntegrationPoliciesClient(unittest.TestCase):
         policies: List[PolicyType] = self.client.get_policies(**params)
         self.assertIsNotNone(policies)
 
-    def test_create_and_delete_policies(self) -> None:
+    def test_create_and_delete_policy(self) -> None:
         # Create and delete happens in setup and teardown methods.
         self.assertEqual(self.created_policy['group_uuid'], self.created_group['uuid'])
 
