@@ -26,4 +26,4 @@ jobs:
       run: python3 -m pip install -r ./requirements/dev.txt
 
     - name: Run tests
-      run: python -m unittest
+      run: python -m unittest discover -s test/unit_tests
