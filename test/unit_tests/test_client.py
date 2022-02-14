@@ -37,6 +37,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._alerts_api_path}',
+                json=[],
                 status=200
             )
             client.get_alerts()
@@ -49,6 +50,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._datasets_api_path}',
+                json=[],
                 status=200
             )
             client.get_datasets()
@@ -61,6 +63,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._groups_api_path}',
+                json=[],
                 status=200
             )
             client.get_groups()
@@ -73,6 +76,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._policies_api_path}',
+                json=[],
                 status=200
             )
             client.get_policies()
@@ -85,6 +89,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._programs_api_path}',
+                json=[],
                 status=200
             )
             client.get_programs()
@@ -97,6 +102,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._things_api_path}',
+                json=[],
                 status=200
             )
             client.get_things()
@@ -109,6 +115,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._timeseries_api_path}',
+                json=[],
                 status=200
             )
             client.get_timeseries()
@@ -121,6 +128,7 @@ class TestSelfHostClient(unittest.TestCase):
             responses.add(
                 responses.GET,
                 url=f'{client._base_url}/{client._api_version}/{client._users_api_path}',
+                json=[],
                 status=200
             )
             client.get_users()

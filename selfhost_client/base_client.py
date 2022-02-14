@@ -2,8 +2,11 @@ import json.decoder
 import os
 import logging
 from typing import Type, Dict, Optional, Any
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .exceptions import (
     SelfHostBadRequestException,
@@ -17,6 +20,7 @@ from .exceptions import (
     SelfHostMethodNotAllowedException
 )
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 logger = logging.getLogger(__name__)
 Response = requests.models.Response
 Session = requests.sessions.Session
@@ -29,6 +33,7 @@ class BaseClient:
     Should only be used as an abstract class.
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -72,6 +77,7 @@ class BaseClient:
         else:
             raise SelfHostFatalErrorException('No credentials provided to client')
 
+    @beartype
     def _process_response(self, response: Response) -> Optional[Any]:
         """Process the response from EnergyView API
 

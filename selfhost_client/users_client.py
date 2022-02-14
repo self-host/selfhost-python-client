@@ -1,12 +1,16 @@
 from typing import List, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.policy_types import PolicyType
 from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -15,6 +19,7 @@ class UsersClient(BaseClient):
     A client for handling the user section of NODA Self-host API
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -23,6 +28,7 @@ class UsersClient(BaseClient):
         super().__init__(base_url, username, password)
         self._users_api_path = 'users'
 
+    @beartype
     def get_users(self,
                   limit: Optional[int] = None,
                   offset: Optional[int] = None
@@ -53,6 +59,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_user(self, name: str) -> UserType:
         """Add a new user to the NODA Self-host API
 
@@ -76,6 +83,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_my_user(self) -> UserType:
         """Returns the current user (you) from NODA Self-host API
 
@@ -94,6 +102,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_user(self, user_uuid: str) -> UserType:
         """Returns a user from NODA Self-host API by UUID
 
@@ -117,6 +126,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_user(self,
                     user_uuid: str,
                     name: Optional[str] = None,
@@ -157,6 +167,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_user(self, user_uuid: str) -> None:
         """Deletes a user from NODA Self-host API
 
@@ -177,6 +188,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_user_policies(self, user_uuid: str) -> List[PolicyType]:
         """Fetches a list of policies associated with the specified user from NODA Self-host API
 
@@ -200,6 +212,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_user_rate(self, user_uuid: str, rate: int) -> None:
         """Change the allowed request rate for a user from NODA Self-host API
 
@@ -222,6 +235,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_user_tokens(self, user_uuid: str) -> List[UserTokenType]:
         """Fetches a list of all secret tokens associated with a specified user from NODA Self-host API
 
@@ -245,6 +259,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_user_token(self, user_uuid: str, token_name: str) -> CreatedUserTokenResponse:
         """Generate and add a new secret token to a specified user from NODA Self-host API
 
@@ -270,6 +285,7 @@ class UsersClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_user_token(self, user_uuid: str, token_uuid: str) -> None:
         """Delete a secret token for a specified user from NODA Self-host API
 

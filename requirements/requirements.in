@@ -1,4 +1,5 @@
 -c pins.txt
 
+beartype
 requests
 typing_extensions

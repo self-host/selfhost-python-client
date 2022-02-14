@@ -1,11 +1,16 @@
 import requests
 from typing import List, Optional
+from warnings import filterwarnings
+
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.group_types import GroupType
 from .types.policy_types import PolicyType
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -14,6 +19,7 @@ class GroupsClient(BaseClient):
     A client for handling the group section of NODA Self-host API.
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -22,6 +28,7 @@ class GroupsClient(BaseClient):
         super().__init__(base_url, username, password)
         self._groups_api_path = 'groups'
 
+    @beartype
     def get_groups(self,
                    limit: Optional[int] = None,
                    offset: Optional[int] = None
@@ -52,6 +59,7 @@ class GroupsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_group(self, name: str) -> GroupType:
         """Add a new group to the NODA Self-host API
 
@@ -75,6 +83,7 @@ class GroupsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_group(self, group_uuid: str) -> GroupType:
         """Fetches a specific group from NODA Self-host API by UUID
 
@@ -98,6 +107,7 @@ class GroupsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_group(self, group_uuid: str, name: str) -> None:
         """Updates a group from NODA Self-host API
 
@@ -120,6 +130,7 @@ class GroupsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_group(self, group_uuid: str) -> None:
         """Deletes a group from NODA Self-host API
 
@@ -140,6 +151,7 @@ class GroupsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_group_policies(self, group_uuid: str) -> List[PolicyType]:
         """Fetches a list of policies associated with the specified group from NODA Self-host API
 

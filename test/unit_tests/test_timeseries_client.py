@@ -244,17 +244,12 @@ class TestPCTTimeseriesClient(unittest.TestCase):
 
     @responses.activate
     def test_create_timeseries_data(self) -> None:
-        mock_response: TimeseriesDataPointType = {
-            'ts': '2022-01-14T12:43:44.147Z',
-            'v': 3.14
-        }
         timeseries_uuid: str = 'Ze7823cc-44fa-403d-853f-d5ce48a002e4'
         with self.subTest('call successful with complete parameter list'):
             responses.add(
                 responses.POST,
                 url=f'{self.base_url}/{self.client._api_version}/{self.client._timeseries_api_path}/{timeseries_uuid}'
                     f'/data',
-                json=mock_response,
                 status=201
             )
 
