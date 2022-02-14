@@ -1,11 +1,15 @@
 from typing import List, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.timeseries_types import TimeseriesType, TimeseriesDataPointType, TimeseriesDataType
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -14,6 +18,7 @@ class TimeseriesClient(BaseClient):
     A client for handling the timeseries section of NODA Self-host API
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -22,6 +27,7 @@ class TimeseriesClient(BaseClient):
         super().__init__(base_url, username, password)
         self._timeseries_api_path = 'timeseries'
 
+    @beartype
     def get_timeseries(self,
                        limit: Optional[int] = None,
                        offset: Optional[int] = None,
@@ -55,6 +61,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_timeseries(self,
                           name: str,
                           si_unit: str,
@@ -97,6 +104,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_timeseries_by_uuid(self, timeseries_uuid: str) -> TimeseriesType:
         """Returns a timeseries from NODA Self-host API by UUID
 
@@ -120,6 +128,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_timeseries(self,
                           timeseries_uuid: str,
                           name: Optional[str] = None,
@@ -162,6 +171,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_timeseries(self, timeseries_uuid: str) -> None:
         """Deletes a timeseries from NODA Self-host API
 
@@ -182,6 +192,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_timeseries_data(self,
                             timeseries_uuid: str,
                             start: str,
@@ -250,6 +261,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_timeseries_data(self,
                                timeseries_uuid: str,
                                data_points: List[TimeseriesDataPointType],
@@ -278,6 +290,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_timeseries_data(self,
                                timeseries_uuid: str,
                                start: str,
@@ -316,6 +329,7 @@ class TimeseriesClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_multiple_timeseries_data(self,
                                      uuids: List[str],
                                      start: str,

@@ -1,6 +1,9 @@
 from typing import List, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.dataset_types import DatasetType
@@ -8,6 +11,7 @@ from .types.thing_types import ThingType
 from .types.timeseries_types import TimeseriesType
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -16,6 +20,7 @@ class ThingsClient(BaseClient):
     A client for handling the things section of NODA Self-host API
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -24,10 +29,11 @@ class ThingsClient(BaseClient):
         super().__init__(base_url, username, password)
         self._things_api_path = 'things'
 
+    @beartype
     def get_things(self,
                    limit: Optional[int] = None,
                    offset: Optional[int] = None,
-                   tags: Optional[int] = None
+                   tags: Optional[List[str]] = None
                    ) -> List[ThingType]:
         """Fetches things from NODA Self-host API
 
@@ -57,6 +63,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_thing(self,
                      name: str,
                      thing_type: Optional[str] = None,
@@ -90,6 +97,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_thing(self, thing_uuid: str) -> ThingType:
         """Returns a thing from NODA Self-host API by UUID
 
@@ -113,6 +121,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_thing(self,
                      thing_uuid: str,
                      name: Optional[str] = None,
@@ -158,6 +167,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_thing(self, thing_uuid: str) -> None:
         """Deletes a thing from NODA Self-host API
 
@@ -178,6 +188,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_thing_datasets(self, thing_uuid: str) -> List[DatasetType]:
         """Returns a list of datasets associated with the specified thing from NODA Self-host API
 
@@ -201,6 +212,7 @@ class ThingsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_thing_timeseries(self, thing_uuid: str) -> List[TimeseriesType]:
         """Returns a list of timeseries associated with the specified thing from NODA Self-host API
 

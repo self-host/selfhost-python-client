@@ -1,11 +1,15 @@
 from typing import List, Any, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.dataset_types import DatasetType
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -14,6 +18,7 @@ class DatasetsClient(BaseClient):
         A client for handling the dataset section of NODA Self-host API
         """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -22,6 +27,7 @@ class DatasetsClient(BaseClient):
         super().__init__(base_url, username, password)
         self._datasets_api_path = 'datasets'
 
+    @beartype
     def get_datasets(self,
                      limit: Optional[int] = None,
                      offset: Optional[int] = None
@@ -52,6 +58,7 @@ class DatasetsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_dataset(self,
                        name: str,
                        dataset_format: str,
@@ -91,6 +98,7 @@ class DatasetsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_dataset(self, dataset_uuid: str) -> DatasetType:
         """Returns a dataset from NODA Self-host API by UUID
 
@@ -114,6 +122,7 @@ class DatasetsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_dataset(self,
                        dataset_uuid: str,
                        name: Optional[str] = None,
@@ -155,6 +164,7 @@ class DatasetsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_dataset(self, dataset_uuid: str) -> None:
         """Deletes a dataset from NODA Self-host API
 
@@ -175,6 +185,7 @@ class DatasetsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_dataset_raw_content(self, dataset_uuid: str) -> Any:
         """Returns the raw content from a dataset from NODA Self-host API by UUID
 

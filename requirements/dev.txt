@@ -4,6 +4,10 @@
 #
 #    pip-compile dev.in
 #
+beartype==0.10.0
+    # via
+    #   -c requirements.txt
+    #   -r requirements.txt
 certifi==2021.10.8
     # via
     #   -c requirements.txt

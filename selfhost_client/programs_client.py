@@ -1,11 +1,15 @@
 from typing import List, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.program_types import ProgramType
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -14,6 +18,7 @@ class ProgramsClient(BaseClient):
     A client for handling the program section of NODA Self-host API
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -22,6 +27,7 @@ class ProgramsClient(BaseClient):
         super().__init__(base_url, username, password)
         self._programs_api_path = 'programs'
 
+    @beartype
     def get_programs(self,
                      limit: Optional[int] = None,
                      offset: Optional[int] = None,
@@ -55,6 +61,7 @@ class ProgramsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_program(self,
                        name: str,
                        program_type: str,
@@ -119,6 +126,7 @@ class ProgramsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_program(self, program_uuid: str) -> ProgramType:
         """Returns a program from NODA Self-host API by UUID
 
@@ -142,6 +150,7 @@ class ProgramsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_program(self,
                        program_uuid: str,
                        name: Optional[str] = None,
@@ -206,6 +215,7 @@ class ProgramsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_program(self, program_uuid) -> None:
         """Deletes a program from NODA Self-host API
 

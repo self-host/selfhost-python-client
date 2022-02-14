@@ -1,11 +1,15 @@
 from typing import List, Optional
+from warnings import filterwarnings
 
 import requests
+from beartype import beartype
+from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.alert_types import AlertType, CreatedAlertResponse
 from .utils import filter_none_values_from_dict
 
+filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
 Response = requests.models.Response
 
 
@@ -14,6 +18,7 @@ class AlertsClient(BaseClient):
     A client for handling the alert section of NODA Self-host API
     """
 
+    @beartype
     def __init__(self,
                  base_url: Optional[str] = None,
                  username: Optional[str] = None,
@@ -22,6 +27,7 @@ class AlertsClient(BaseClient):
         super().__init__(base_url, username, password)
         self._alerts_api_path = 'alerts'
 
+    @beartype
     def get_alerts(self,
                    limit: Optional[int] = None,
                    offset: Optional[int] = None,
@@ -116,6 +122,7 @@ class AlertsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def create_alert(self,
                      resource: str,
                      environment: str,
@@ -208,6 +215,7 @@ class AlertsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def get_alert(self, alert_uuid: str) -> AlertType:
         """Returns an alert from NODA Self-host API by UUID
 
@@ -231,6 +239,7 @@ class AlertsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def update_alert(self,
                      alert_uuid: str,
                      resource: Optional[str] = None,
@@ -325,6 +334,7 @@ class AlertsClient(BaseClient):
         )
         return self._process_response(response)
 
+    @beartype
     def delete_alert(self, alert_uuid: str) -> None:
         """Deletes an alert from NODA Self-host API
 
