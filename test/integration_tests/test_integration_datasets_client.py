@@ -58,6 +58,6 @@ class TestIntegrationDatasetsClient(unittest.TestCase):
         self.assertEqual(fetched_dataset['format'], 'json')
         self.assertEqual(fetched_dataset['tags'], ['updated'])
 
-    def test_get_dataset_raw_content(self):
+    def test_get_dataset_raw_content(self) -> None:
         fetched_content: Any = self.client.get_dataset_raw_content(self.created_dataset['uuid'])
         self.assertIsNotNone(fetched_content)

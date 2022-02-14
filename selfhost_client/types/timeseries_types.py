@@ -66,7 +66,7 @@ class TimeseriesDataPointType(TypedDict):
 class TimeseriesDataType(TypedDict):
     """
     Attributes:
-        uuid: A unique identifier for this timeseries data
+        uuid: The unique identifier for the timeseries this data is linked to.
         data: A list of timeseries data points
 
     Example::
