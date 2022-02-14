@@ -57,7 +57,7 @@ class DatasetsClient(BaseClient):
                        dataset_format: str,
                        content: str,
                        thing_uuid: Optional[str] = None,
-                       tags: Optional[str] = None
+                       tags: Optional[List[str]] = None
                        ) -> DatasetType:
         """Add a new dataset to the NODA Self-host API
 
