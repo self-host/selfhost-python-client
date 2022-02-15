@@ -5,7 +5,6 @@ from typing import List, Dict, Union
 import responses
 import unittest
 import urllib
-
 from pyrfc3339.utils import FixedOffset
 
 from selfhost_client import UsersClient, PolicyType, UserType, UserTokenType, CreatedUserTokenResponse

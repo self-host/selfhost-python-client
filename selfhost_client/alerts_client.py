@@ -1,12 +1,13 @@
 from typing import List, Optional
 from warnings import filterwarnings
 
+import pyrfc3339
 import requests
 from beartype import beartype
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
-from .types.alert_types import AlertType, CreatedAlertResponse
+from .types.alert_types import AlertType, CreatedAlertResponse, AlertResponse
 from .utils import filter_none_values_from_dict
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -120,7 +121,26 @@ class AlertsClient(BaseClient):
                 'service': service
             })
         )
-        return self._process_response(response)
+        alerts: List[AlertResponse] = self._process_response(response)
+        return [{
+            'uuid': alert.get('uuid'),
+            'resource': alert.get('resource'),
+            'environment': alert.get('environment'),
+            'event': alert.get('event'),
+            'severity': alert.get('severity'),
+            'status': alert.get('status'),
+            'service': alert.get('service'),
+            'value': alert.get('value'),
+            'description': alert.get('description'),
+            'origin': alert.get('origin'),
+            'tags': alert.get('tags'),
+            'timeout': alert.get('timeout'),
+            'rawdata': alert.get('rawdata'),
+            'duplicate': alert.get('duplicate'),
+            'previous_severity': alert.get('previous_severity'),
+            'created': pyrfc3339.parse(alert.get('created')),
+            'last_receive_time': pyrfc3339.parse(alert.get('last_receive_time')),
+        } for alert in alerts]
 
     @beartype
     def create_alert(self,
@@ -237,7 +257,27 @@ class AlertsClient(BaseClient):
         response: Response = self._session.get(
             url=f'{self._base_url}/{self._api_version}/{self._alerts_api_path}/{alert_uuid}'
         )
-        return self._process_response(response)
+
+        alert: AlertResponse = self._process_response(response)
+        return {
+            'uuid': alert.get('uuid'),
+            'resource': alert.get('resource'),
+            'environment': alert.get('environment'),
+            'event': alert.get('event'),
+            'severity': alert.get('severity'),
+            'status': alert.get('status'),
+            'service': alert.get('service'),
+            'value': alert.get('value'),
+            'description': alert.get('description'),
+            'origin': alert.get('origin'),
+            'tags': alert.get('tags'),
+            'timeout': alert.get('timeout'),
+            'rawdata': alert.get('rawdata'),
+            'duplicate': alert.get('duplicate'),
+            'previous_severity': alert.get('previous_severity'),
+            'created': pyrfc3339.parse(alert.get('created')),
+            'last_receive_time': pyrfc3339.parse(alert.get('last_receive_time')),
+        }
 
     @beartype
     def update_alert(self,
