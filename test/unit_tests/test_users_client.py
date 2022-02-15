@@ -1,11 +1,15 @@
 import json
+import datetime
 from typing import List, Dict, Union
 
 import responses
 import unittest
 import urllib
 
+from pyrfc3339.utils import FixedOffset
+
 from selfhost_client import UsersClient, PolicyType, UserType, UserTokenType, CreatedUserTokenResponse
+from selfhost_client.types.user_types import UserTokenResponse
 
 
 class TestUsersClient(unittest.TestCase):
@@ -252,7 +256,7 @@ class TestUsersClient(unittest.TestCase):
 
     @responses.activate
     def test_get_user_tokens(self) -> None:
-        mock_response: List[UserTokenType] = [
+        mock_response: List[UserTokenResponse] = [
             {
                 'created': '2020-03-09T09:48:30.035+02:00',
                 'name': 'My first secret token',
@@ -270,12 +274,16 @@ class TestUsersClient(unittest.TestCase):
 
             res: List[UserTokenType] = self.client.get_user_tokens(user_uuid)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._users_api_path}/{user_uuid}/tokens'
+            )
+            self.assertEqual(res[0]['uuid'], mock_response[0]['uuid'])
+            self.assertEqual(res[0]['name'], mock_response[0]['name'])
+            self.assertEqual(
+                res[0]['created'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
             )
 
     @responses.activate
