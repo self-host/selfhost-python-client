@@ -1,3 +1,4 @@
+import datetime
 from typing import List
 
 try:
@@ -45,11 +46,11 @@ class TimeseriesType(TypedDict):
     tags: List[str]
 
 
-class TimeseriesDataPointType(TypedDict):
+class TimeseriesDataPointResponse(TypedDict):
     """
     Attributes:
         v: Value of the data point.
-        ts: Date-time when created, as defined by RFC 3339, section 5.6.
+        ts: Date-time string when created, as defined by RFC 3339, section 5.6.
 
     Example::
 
@@ -61,6 +62,45 @@ class TimeseriesDataPointType(TypedDict):
     """
     v: float
     ts: str
+
+
+class TimeseriesDataPointType(TypedDict):
+    """
+    Attributes:
+        v: Value of the data point.
+        ts: Date-time created, as defined by RFC 3339, section 5.6.
+
+    Example::
+
+        {
+            'v': 3.14,
+            'ts':  datetime.datetime(2020, 1, 1, 0, 15, tzinfo=<UTC+01:00>)
+        }
+
+    """
+    v: float
+    ts: datetime.datetime
+
+
+class TimeseriesDataResponse(TypedDict):
+    """
+    Attributes:
+        uuid: The unique identifier for the timeseries this data is linked to.
+        data: A list of timeseries data points
+
+    Example::
+
+        {
+            'uuid': 'e21ae595-15a5-4f11-8992-9d33600cc1ee',
+            'data': [{
+                'v': 3.14,
+                'ts': '2022-02-04T13:50:54.672Z'
+            }]
+        }
+
+    """
+    uuid: str
+    data: List[TimeseriesDataPointResponse]
 
 
 class TimeseriesDataType(TypedDict):
@@ -75,7 +115,7 @@ class TimeseriesDataType(TypedDict):
             'uuid': 'e21ae595-15a5-4f11-8992-9d33600cc1ee',
             'data': [{
                 'v': 3.14,
-                'ts': '2022-02-04T13:50:54.672Z'
+                'ts': datetime.datetime(2020, 1, 1, 0, 15, tzinfo=<UTC+01:00>)
             }]
         }
 

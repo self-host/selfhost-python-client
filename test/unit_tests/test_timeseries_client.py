@@ -1,11 +1,19 @@
+import datetime
 import json
 from typing import List, Dict, Union
 
 import responses
 import unittest
 import urllib
+from pyrfc3339.utils import FixedOffset
 
-from selfhost_client import TimeseriesClient, TimeseriesType, TimeseriesDataPointType, TimeseriesDataType
+from selfhost_client import (
+    TimeseriesClient,
+    TimeseriesType,
+    TimeseriesDataPointType,
+    TimeseriesDataType,
+    TimeseriesDataPointResponse, TimeseriesDataResponse
+)
 
 
 class TestPCTTimeseriesClient(unittest.TestCase):
@@ -196,7 +204,7 @@ class TestPCTTimeseriesClient(unittest.TestCase):
 
     @responses.activate
     def test_get_timeseries_data(self) -> None:
-        mock_response: List[TimeseriesDataPointType] = [
+        mock_response: List[TimeseriesDataPointResponse] = [
             {
                 'ts': '2022-01-14T12:43:44.147Z',
                 'v': 3.14
@@ -225,7 +233,6 @@ class TestPCTTimeseriesClient(unittest.TestCase):
 
             res: List[TimeseriesDataPointType] = self.client.get_timeseries_data(timeseries_uuid, **params)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
 
             self.assertEqual(
@@ -241,6 +248,12 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(responses.calls[0].request.params.get('precision'), params['precision'])
             self.assertEqual(responses.calls[0].request.params.get('aggregate'), params['aggregate'])
             self.assertEqual(responses.calls[0].request.params.get('timezone'), params['timezone'])
+
+            self.assertEqual(res[0]['v'], mock_response[0]['v'])
+            self.assertEqual(
+                res[0]['ts'],
+                datetime.datetime(2022, 1, 14, 12, 43, 44, 147000, tzinfo=FixedOffset(0, 0))
+            )
 
     @responses.activate
     def test_create_timeseries_data(self) -> None:
@@ -306,7 +319,7 @@ class TestPCTTimeseriesClient(unittest.TestCase):
 
     @responses.activate
     def test_get_multiple_timeseries_data(self) -> None:
-        mock_response: List[TimeseriesDataType] = [
+        mock_response: List[TimeseriesDataResponse] = [
             {
                 'data': [{
                     'ts': '2022-01-14T12:43:44.147Z',
@@ -337,7 +350,6 @@ class TestPCTTimeseriesClient(unittest.TestCase):
 
             res: List[TimeseriesDataType] = self.client.get_multiple_timeseries_data(**params)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
 
             self.assertEqual(
@@ -354,3 +366,9 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(responses.calls[0].request.params.get('precision'), params['precision'])
             self.assertEqual(responses.calls[0].request.params.get('aggregate'), params['aggregate'])
             self.assertEqual(responses.calls[0].request.params.get('timezone'), params['timezone'])
+
+            self.assertEqual(res[0]['data'][0]['v'], mock_response[0]['data'][0]['v'])
+            self.assertEqual(
+                res[0]['data'][0]['ts'],
+                datetime.datetime(2022, 1, 14, 12, 43, 44, 147000, tzinfo=FixedOffset(0, 0))
+            )
