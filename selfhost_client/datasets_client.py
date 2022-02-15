@@ -1,12 +1,13 @@
 from typing import List, Any, Optional
 from warnings import filterwarnings
 
+import pyrfc3339
 import requests
 from beartype import beartype
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
-from .types.dataset_types import DatasetType
+from .types.dataset_types import DatasetType, DatasetResponse
 from .utils import filter_none_values_from_dict
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -56,7 +57,20 @@ class DatasetsClient(BaseClient):
                 'offset': offset
             })
         )
-        return self._process_response(response)
+        datasets: List[DatasetResponse] = self._process_response(response)
+        return [{
+            'uuid': dataset.get('uuid'),
+            'name': dataset.get('name'),
+            'format': dataset.get('format'),
+            'checksum': dataset.get('checksum'),
+            'size': dataset.get('size'),
+            'thing_uuid': dataset.get('thing_uuid'),
+            'created_by': dataset.get('created_by'),
+            'updated_by': dataset.get('updated_by'),
+            'tags': dataset.get('tags'),
+            'created': pyrfc3339.parse(dataset.get('created')),
+            'updated': pyrfc3339.parse(dataset.get('updated')),
+        } for dataset in datasets]
 
     @beartype
     def create_dataset(self,
@@ -120,7 +134,20 @@ class DatasetsClient(BaseClient):
         response: Response = self._session.get(
             url=f'{self._base_url}/{self._api_version}/{self._datasets_api_path}/{dataset_uuid}'
         )
-        return self._process_response(response)
+        dataset: DatasetResponse = self._process_response(response)
+        return {
+            'uuid': dataset.get('uuid'),
+            'name': dataset.get('name'),
+            'format': dataset.get('format'),
+            'checksum': dataset.get('checksum'),
+            'size': dataset.get('size'),
+            'thing_uuid': dataset.get('thing_uuid'),
+            'created_by': dataset.get('created_by'),
+            'updated_by': dataset.get('updated_by'),
+            'tags': dataset.get('tags'),
+            'created': pyrfc3339.parse(dataset.get('created')),
+            'updated': pyrfc3339.parse(dataset.get('updated')),
+        }
 
     @beartype
     def update_dataset(self,
