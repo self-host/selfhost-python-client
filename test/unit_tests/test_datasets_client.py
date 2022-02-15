@@ -1,9 +1,11 @@
+import datetime
 import json
 from typing import List, Dict, Union
 
 import responses
 import unittest
 import urllib
+from pyrfc3339.utils import FixedOffset
 
 from selfhost_client import DatasetsClient, DatasetType
 
@@ -24,7 +26,7 @@ class TestDatasetsClient(unittest.TestCase):
         mock_response: List[DatasetType] = [
             {
                 'checksum': '853ff93762a06ddbf722c4ebe9ddd66d8f63ddaea97f521c3ecc20da7c976020',
-                'created': '2017-07-21T17:32:28+02:00',
+                'created': '2020-03-09T09:48:30.035+02:00',
                 'created_by': 'f36834fb-8d96-4c01-b0e4-0bd85906bc25',
                 'format': 'ini',
                 'name': 'ML model yTgvX7z',
@@ -34,7 +36,7 @@ class TestDatasetsClient(unittest.TestCase):
                     'tag2'
                 ],
                 'thing_uuid': 'f36834fb-8d96-4c01-b0e4-0bd85906bc25',
-                'updated': '2017-07-21T17:32:28+02:00',
+                'updated': '2020-03-09T09:48:30.035+02:00',
                 'updated_by': 'A36834fb-8d96-4c01-b0e4-0bd85906bc25',
                 'uuid': '5e029cdf-4fee-42d2-9196-afbdfbdb9d8f'
             }
@@ -53,9 +55,7 @@ class TestDatasetsClient(unittest.TestCase):
             }
             res: List[DatasetType] = self.client.get_datasets(**params)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._datasets_api_path}'
@@ -63,6 +63,24 @@ class TestDatasetsClient(unittest.TestCase):
             )
             self.assertEqual(responses.calls[0].request.params.get('limit'), str(params['limit']))
             self.assertEqual(responses.calls[0].request.params.get('offset'), str(params['offset']))
+
+            self.assertEqual(res[0]['uuid'], mock_response[0]['uuid'])
+            self.assertEqual(res[0]['name'], mock_response[0]['name'])
+            self.assertEqual(res[0]['format'], mock_response[0]['format'])
+            self.assertEqual(res[0]['checksum'], mock_response[0]['checksum'])
+            self.assertEqual(res[0]['size'], mock_response[0]['size'])
+            self.assertEqual(res[0]['thing_uuid'], mock_response[0]['thing_uuid'])
+            self.assertEqual(res[0]['created_by'], mock_response[0]['created_by'])
+            self.assertEqual(res[0]['updated_by'], mock_response[0]['updated_by'])
+            self.assertEqual(res[0]['tags'], mock_response[0]['tags'])
+            self.assertEqual(
+                res[0]['created'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
+            self.assertEqual(
+                res[0]['updated'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
 
     @responses.activate
     def test_create_dataset(self) -> None:
@@ -126,7 +144,7 @@ class TestDatasetsClient(unittest.TestCase):
     def test_get_dataset(self) -> None:
         mock_response: DatasetType = {
             'checksum': '853ff93762a06ddbf722c4ebe9ddd66d8f63ddaea97f521c3ecc20da7c976020',
-            'created': '2017-07-21T17:32:28+02:00',
+            'created': '2020-03-09T09:48:30.035+02:00',
             'created_by': 'f36834fb-8d96-4c01-b0e4-0bd85906bc25',
             'format': 'ini',
             'name': 'ML model yTgvX7z',
@@ -136,7 +154,7 @@ class TestDatasetsClient(unittest.TestCase):
                 'tag2'
             ],
             'thing_uuid': 'f36834fb-8d96-4c01-b0e4-0bd85906bc25',
-            'updated': '2017-07-21T17:32:28+02:00',
+            'updated': '2020-03-09T09:48:30.035+02:00',
             'updated_by': 'A36834fb-8d96-4c01-b0e4-0bd85906bc25',
             'uuid': '5e029cdf-4fee-42d2-9196-afbdfbdb9d8f'
         }
@@ -151,12 +169,28 @@ class TestDatasetsClient(unittest.TestCase):
 
             res: DatasetType = self.client.get_dataset(dataset_uuid)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._datasets_api_path}/{dataset_uuid}'
+            )
+
+            self.assertEqual(res['uuid'], mock_response['uuid'])
+            self.assertEqual(res['name'], mock_response['name'])
+            self.assertEqual(res['format'], mock_response['format'])
+            self.assertEqual(res['checksum'], mock_response['checksum'])
+            self.assertEqual(res['size'], mock_response['size'])
+            self.assertEqual(res['thing_uuid'], mock_response['thing_uuid'])
+            self.assertEqual(res['created_by'], mock_response['created_by'])
+            self.assertEqual(res['updated_by'], mock_response['updated_by'])
+            self.assertEqual(res['tags'], mock_response['tags'])
+            self.assertEqual(
+                res['created'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
+            self.assertEqual(
+                res['updated'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
             )
 
     @responses.activate
