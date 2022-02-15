@@ -22,9 +22,15 @@ from .exceptions import (
     SelfHostInternalServerException,
     SelfHostFatalErrorException
 )
-from .types.dataset_types import DatasetType
+from .types.dataset_types import DatasetType, DatasetResponse
 from .types.program_types import ProgramType
-from .types.timeseries_types import TimeseriesType, TimeseriesDataType, TimeseriesDataPointType
+from .types.timeseries_types import (
+    TimeseriesType,
+    TimeseriesDataType,
+    TimeseriesDataPointType,
+    TimeseriesDataPointResponse,
+    TimeseriesDataResponse
+)
 from .types.thing_types import ThingType
 from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse, UserTokenResponse
 from .types.group_types import GroupType

@@ -1,12 +1,14 @@
 from typing import List, Optional
 from warnings import filterwarnings
 
+import pyrfc3339
 import requests
 from beartype import beartype
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
-from .types.timeseries_types import TimeseriesType, TimeseriesDataPointType, TimeseriesDataType
+from .types.timeseries_types import TimeseriesType, TimeseriesDataPointType, TimeseriesDataType, \
+    TimeseriesDataPointResponse, TimeseriesDataResponse
 from .utils import filter_none_values_from_dict
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -259,7 +261,11 @@ class TimeseriesClient(BaseClient):
                 'timezone': timezone
             })
         )
-        return self._process_response(response)
+        timeseries_data_points: List[TimeseriesDataPointResponse] = self._process_response(response)
+        return [{
+            'v': data_point.get('v'),
+            'ts': pyrfc3339.parse(data_point.get('ts'))
+        } for data_point in timeseries_data_points]
 
     @beartype
     def create_timeseries_data(self,
@@ -397,4 +403,11 @@ class TimeseriesClient(BaseClient):
                 'timezone': timezone
             })
         )
-        return self._process_response(response)
+        timeseries_data: List[TimeseriesDataResponse] = self._process_response(response)
+        return [{
+            'uuid': data.get('uuid'),
+            'data': [{
+                'v': data_point.get('v'),
+                'ts': pyrfc3339.parse(data_point.get('ts'))
+            } for data_point in data.get('data')]
+        } for data in timeseries_data]
