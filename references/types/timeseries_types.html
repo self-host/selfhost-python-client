@@ -88,11 +88,11 @@
   <section id="module-selfhost_client.types.timeseries_types">
 <span id="timeseries-types"></span><h1>Timeseries Types<a class="headerlink" href="#module-selfhost_client.types.timeseries_types" title="Permalink to this headline"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">selfhost_client.types.timeseries_types.</span></span><span class="sig-name descname"><span class="pre">TimeseriesDataPointType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">selfhost_client.types.timeseries_types.</span></span><span class="sig-name descname"><span class="pre">TimeseriesDataPointResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointResponse" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
-<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType.v">
-<span class="sig-name descname"><span class="pre">v</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType.v" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointResponse.v">
+<span class="sig-name descname"><span class="pre">v</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointResponse.v" title="Permalink to this definition"></a></dt>
 <dd><p>Value of the data point.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
@@ -102,9 +102,9 @@
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType.ts">
-<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType.ts" title="Permalink to this definition"></a></dt>
-<dd><p>Date-time when created, as defined by RFC 3339, section 5.6.</p>
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointResponse.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointResponse.ts" title="Permalink to this definition"></a></dt>
+<dd><p>Date-time string when created, as defined by RFC 3339, section 5.6.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -122,12 +122,83 @@
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">selfhost_client.types.timeseries_types.</span></span><span class="sig-name descname"><span class="pre">TimeseriesDataPointType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType.v">
+<span class="sig-name descname"><span class="pre">v</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType.v" title="Permalink to this definition"></a></dt>
+<dd><p>Value of the data point.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataPointType.ts">
+<span class="sig-name descname"><span class="pre">ts</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointType.ts" title="Permalink to this definition"></a></dt>
+<dd><p>Date-time created, as defined by RFC 3339, section 5.6.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="mf">3.14</span><span class="p">,</span>
+    <span class="s1">&#39;ts&#39;</span><span class="p">:</span>  <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=&lt;</span><span class="n">UTC</span><span class="o">+</span><span class="mi">01</span><span class="p">:</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataResponse">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">selfhost_client.types.timeseries_types.</span></span><span class="sig-name descname"><span class="pre">TimeseriesDataResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataResponse" title="Permalink to this definition"></a></dt>
+<dd><dl class="py attribute">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataResponse.uuid">
+<span class="sig-name descname"><span class="pre">uuid</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataResponse.uuid" title="Permalink to this definition"></a></dt>
+<dd><p>The unique identifier for the timeseries this data is linked to.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataResponse.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataResponse.data" title="Permalink to this definition"></a></dt>
+<dd><p>A list of timeseries data points</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#selfhost_client.types.timeseries_types.TimeseriesDataPointResponse" title="selfhost_client.types.timeseries_types.TimeseriesDataPointResponse">selfhost_client.types.timeseries_types.TimeseriesDataPointResponse</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="s1">&#39;e21ae595-15a5-4f11-8992-9d33600cc1ee&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="mf">3.14</span><span class="p">,</span>
+        <span class="s1">&#39;ts&#39;</span><span class="p">:</span> <span class="s1">&#39;2022-02-04T13:50:54.672Z&#39;</span>
+    <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataType">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">selfhost_client.types.timeseries_types.</span></span><span class="sig-name descname"><span class="pre">TimeseriesDataType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataType" title="Permalink to this definition"></a></dt>
 <dd><dl class="py attribute">
 <dt class="sig sig-object py" id="selfhost_client.types.timeseries_types.TimeseriesDataType.uuid">
 <span class="sig-name descname"><span class="pre">uuid</span></span><a class="headerlink" href="#selfhost_client.types.timeseries_types.TimeseriesDataType.uuid" title="Permalink to this definition"></a></dt>
-<dd><p>A unique identifier for this timeseries data</p>
+<dd><p>The unique identifier for the timeseries this data is linked to.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type</dt>
 <dd class="field-odd"><p>str</p>
@@ -151,7 +222,7 @@
     <span class="s1">&#39;uuid&#39;</span><span class="p">:</span> <span class="s1">&#39;e21ae595-15a5-4f11-8992-9d33600cc1ee&#39;</span><span class="p">,</span>
     <span class="s1">&#39;data&#39;</span><span class="p">:</span> <span class="p">[{</span>
         <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="mf">3.14</span><span class="p">,</span>
-        <span class="s1">&#39;ts&#39;</span><span class="p">:</span> <span class="s1">&#39;2022-02-04T13:50:54.672Z&#39;</span>
+        <span class="s1">&#39;ts&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2020</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">tzinfo</span><span class="o">=&lt;</span><span class="n">UTC</span><span class="o">+</span><span class="mi">01</span><span class="p">:</span><span class="mi">00</span><span class="o">&gt;</span><span class="p">)</span>
     <span class="p">}]</span>
 <span class="p">}</span>
 </pre></div>
