@@ -1,3 +1,4 @@
+import datetime
 from typing import List
 
 from ..types.group_types import GroupType
@@ -39,14 +40,35 @@ class UserTokenType(TypedDict):
     Attributes:
         uuid: The unique identifier for this token.
         name: The name of the token.
-        created: The datetime that the token was created. In the format: YYYY-MM-DDThh:mm:ss±hh:mm.
+        created: The datetime (RFC 3339, section 5.6) when the token was created.
 
     Example::
 
         {
             'uuid': '1740f1e4-d2c6-4943-9976-9ff10eab90b2'
             'name': 'My token',
-            'created': '2020-03-09T09:48:30.035+02:00',
+            'created': datetime.datetime(2020, 1, 1, 0, 15, tzinfo=<UTC+01:00>)
+        }
+
+    """
+    uuid: str
+    name: str
+    created: datetime.datetime
+
+
+class UserTokenResponse(TypedDict):
+    """
+    Attributes:
+        uuid: The unique identifier for this token.
+        name: The name of the token.
+        created: Date string of when the token was created.
+
+    Example::
+
+        {
+            'uuid': '1740f1e4-d2c6-4943-9976-9ff10eab90b2'
+            'name': 'My token',
+            'created': datetime.datetime(2020, 1, 1, 0, 15, tzinfo=<UTC+01:00>)
         }
 
     """

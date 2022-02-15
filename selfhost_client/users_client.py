@@ -1,13 +1,14 @@
 from typing import List, Optional
 from warnings import filterwarnings
 
+import pyrfc3339
 import requests
 from beartype import beartype
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.policy_types import PolicyType
-from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse
+from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse, UserTokenResponse
 from .utils import filter_none_values_from_dict
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -257,7 +258,12 @@ class UsersClient(BaseClient):
         response: Response = self._session.get(
             url=f'{self._base_url}/{self._api_version}/{self._users_api_path}/{user_uuid}/tokens'
         )
-        return self._process_response(response)
+        user_tokens: List[UserTokenResponse] = self._process_response(response)
+        return [{
+            'uuid': token.get('uuid'),
+            'name': token.get('name'),
+            'created': pyrfc3339.parse(token['created'])
+        } for token in user_tokens]
 
     @beartype
     def create_user_token(self, user_uuid: str, token_name: str) -> CreatedUserTokenResponse:

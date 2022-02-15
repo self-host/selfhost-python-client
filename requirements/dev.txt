@@ -72,6 +72,15 @@ pyflakes==2.4.0
     # via flake8
 pyparsing==3.0.6
     # via packaging
+pyrfc3339==1.1
+    # via
+    #   -c requirements.txt
+    #   -r requirements.txt
+pytz==2021.3
+    # via
+    #   -c requirements.txt
+    #   -r requirements.txt
+    #   pyrfc3339
 pyyaml==6.0
     # via pre-commit
 requests==2.27.1

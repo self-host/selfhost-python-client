@@ -2,4 +2,5 @@
 
 beartype
 requests
+pyRFC3339
 typing_extensions
