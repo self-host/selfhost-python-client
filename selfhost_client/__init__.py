@@ -26,9 +26,9 @@ from .types.dataset_types import DatasetType
 from .types.program_types import ProgramType
 from .types.timeseries_types import TimeseriesType, TimeseriesDataType, TimeseriesDataPointType
 from .types.thing_types import ThingType
-from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse
+from .types.user_types import UserType, UserTokenType, CreatedUserTokenResponse, UserTokenResponse
 from .types.group_types import GroupType
 from .types.policy_types import PolicyType
-from .types.alert_types import AlertType, CreatedAlertResponse
+from .types.alert_types import AlertType, CreatedAlertResponse, AlertResponse
 
 logging.getLogger(__name__).addHandler(logging.NullHandler())

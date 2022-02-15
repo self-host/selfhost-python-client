@@ -1,9 +1,11 @@
+import datetime
 import json
 from typing import List, Dict, Union
 
 import responses
 import unittest
 import urllib
+from pyrfc3339.utils import FixedOffset
 
 from selfhost_client import AlertsClient, AlertType, CreatedAlertResponse
 
@@ -23,12 +25,12 @@ class TestThingsClient(unittest.TestCase):
     def test_get_alerts(self) -> None:
         mock_response: List[AlertType] = [
             {
-                'created': '2017-07-21T17:32:28+02:00',
+                'created': '2020-03-09T09:48:30.035+02:00',
                 'description': 'new alert',
                 'duplicate': 0,
                 'environment': 'string',
                 'event': 'string',
-                'last_receive_time': '2017-07-21T17:32:28+02:00',
+                'last_receive_time': '2020-03-09T09:48:30.035+02:00',
                 'origin': 'string',
                 'previous_severity': 'critical',
                 'rawdata': 'string',
@@ -78,9 +80,7 @@ class TestThingsClient(unittest.TestCase):
             }
             res: List[AlertType] = self.client.get_alerts(**params)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._alerts_api_path}'
@@ -98,6 +98,30 @@ class TestThingsClient(unittest.TestCase):
             self.assertEqual(responses.calls[0].request.params.get('severity'), params['severity'])
             self.assertEqual(responses.calls[0].request.params.get('tags'), params['tags'])
             self.assertEqual(responses.calls[0].request.params.get('service'), params['service'])
+
+            self.assertEqual(res[0]['description'], mock_response[0]['description'])
+            self.assertEqual(res[0]['duplicate'], mock_response[0]['duplicate'])
+            self.assertEqual(res[0]['environment'], mock_response[0]['environment'])
+            self.assertEqual(res[0]['event'], mock_response[0]['event'])
+            self.assertEqual(res[0]['origin'], mock_response[0]['origin'])
+            self.assertEqual(res[0]['previous_severity'], mock_response[0]['previous_severity'])
+            self.assertEqual(res[0]['rawdata'], mock_response[0]['rawdata'])
+            self.assertEqual(res[0]['resource'], mock_response[0]['resource'])
+            self.assertEqual(res[0]['service'], mock_response[0]['service'])
+            self.assertEqual(res[0]['severity'], mock_response[0]['severity'])
+            self.assertEqual(res[0]['status'], mock_response[0]['status'])
+            self.assertEqual(res[0]['tags'], mock_response[0]['tags'])
+            self.assertEqual(res[0]['timeout'], mock_response[0]['timeout'])
+            self.assertEqual(res[0]['uuid'], mock_response[0]['uuid'])
+            self.assertEqual(res[0]['value'], mock_response[0]['value'])
+            self.assertEqual(
+                res[0]['created'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
+            self.assertEqual(
+                res[0]['last_receive_time'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
 
     @responses.activate
     def test_create_alert(self) -> None:
@@ -147,12 +171,12 @@ class TestThingsClient(unittest.TestCase):
     @responses.activate
     def test_get_alert(self) -> None:
         mock_response: AlertType = {
-            'created': '2017-07-21T17:32:28+02:00',
+            'created': '2020-03-09T09:48:30.035+02:00',
             'description': 'new alert',
             'duplicate': 0,
             'environment': 'string',
             'event': 'string',
-            'last_receive_time': '2017-07-21T17:32:28+02:00',
+            'last_receive_time': '2020-03-09T09:48:30.035+02:00',
             'origin': 'string',
             'previous_severity': 'critical',
             'rawdata': 'string',
@@ -183,12 +207,34 @@ class TestThingsClient(unittest.TestCase):
 
             res: AlertType = self.client.get_alert(alert_uuid)
 
-            self.assertEqual(res, mock_response)
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._alerts_api_path}/{alert_uuid}'
+            )
+
+            self.assertEqual(res['description'], mock_response['description'])
+            self.assertEqual(res['duplicate'], mock_response['duplicate'])
+            self.assertEqual(res['environment'], mock_response['environment'])
+            self.assertEqual(res['event'], mock_response['event'])
+            self.assertEqual(res['origin'], mock_response['origin'])
+            self.assertEqual(res['previous_severity'], mock_response['previous_severity'])
+            self.assertEqual(res['rawdata'], mock_response['rawdata'])
+            self.assertEqual(res['resource'], mock_response['resource'])
+            self.assertEqual(res['service'], mock_response['service'])
+            self.assertEqual(res['severity'], mock_response['severity'])
+            self.assertEqual(res['status'], mock_response['status'])
+            self.assertEqual(res['tags'], mock_response['tags'])
+            self.assertEqual(res['timeout'], mock_response['timeout'])
+            self.assertEqual(res['uuid'], mock_response['uuid'])
+            self.assertEqual(res['value'], mock_response['value'])
+            self.assertEqual(
+                res['created'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+            )
+            self.assertEqual(
+                res['last_receive_time'],
+                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
             )
 
     @responses.activate

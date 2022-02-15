@@ -262,7 +262,7 @@ class UsersClient(BaseClient):
         return [{
             'uuid': token.get('uuid'),
             'name': token.get('name'),
-            'created': pyrfc3339.parse(token['created'])
+            'created': pyrfc3339.parse(token.get('created'))
         } for token in user_tokens]
 
     @beartype
