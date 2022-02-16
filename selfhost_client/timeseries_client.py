@@ -1,3 +1,4 @@
+import datetime
 from typing import List, Optional
 from warnings import filterwarnings
 
@@ -197,8 +198,8 @@ class TimeseriesClient(BaseClient):
     @beartype
     def get_timeseries_data(self,
                             timeseries_uuid: str,
-                            start: str,
-                            end: str,
+                            start: datetime.datetime,
+                            end: datetime.datetime,
                             unit: Optional[str] = None,
                             ge: Optional[int] = None,
                             le: Optional[int] = None,
@@ -210,10 +211,10 @@ class TimeseriesClient(BaseClient):
 
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
-            start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
-            end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
+            start (datetime): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
+            end (datetime): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
             unit (Optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
@@ -251,8 +252,8 @@ class TimeseriesClient(BaseClient):
         response: Response = self._session.get(
             url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
             params=filter_none_values_from_dict({
-                'start': start,
-                'end': end,
+                'start': start.isoformat(),
+                'end': end.isoformat(),
                 'unit': unit,
                 'ge': ge,
                 'le': le,
@@ -289,18 +290,23 @@ class TimeseriesClient(BaseClient):
             :class:`.SelfHostInternalServerException`: Server encountered an unexpected condition that prevented it
                 from fulfilling the request.
         """
+        filtered_data_points: List[TimeseriesDataPointResponse] = [{
+            'v': data_point['v'],
+            'ts': data_point['ts'].isoformat()
+        } for data_point in data_points]
+
         response: Response = self._session.post(
             url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
             params=filter_none_values_from_dict({'unit': unit}),
-            json=data_points
+            json=filtered_data_points
         )
         return self._process_response(response)
 
     @beartype
     def delete_timeseries_data(self,
                                timeseries_uuid: str,
-                               start: str,
-                               end: str,
+                               start: datetime.datetime,
+                               end: datetime.datetime,
                                ge: Optional[int] = None,
                                le: Optional[int] = None
                                ) -> None:
@@ -308,10 +314,10 @@ class TimeseriesClient(BaseClient):
 
         Args:
             timeseries_uuid (str): UUID of timeseries to query.
-            start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
-            end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
+            start (datetime): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
+            end (datetime): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
             ge (Optional[int]): Value should be greater or equal to (>=) this.
             le (Optional[int]): Value should be less or equal to (<=) this.
 
@@ -327,8 +333,8 @@ class TimeseriesClient(BaseClient):
         response: Response = self._session.delete(
             url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
             params=filter_none_values_from_dict({
-                'start': start,
-                'end': end,
+                'start': start.isoformat(),
+                'end': end.isoformat(),
                 'ge': ge,
                 'le': le
             })
@@ -338,8 +344,8 @@ class TimeseriesClient(BaseClient):
     @beartype
     def get_multiple_timeseries_data(self,
                                      uuids: List[str],
-                                     start: str,
-                                     end: str,
+                                     start: datetime.datetime,
+                                     end: datetime.datetime,
                                      unit: Optional[str] = None,
                                      ge: Optional[int] = None,
                                      le: Optional[int] = None,
@@ -351,10 +357,10 @@ class TimeseriesClient(BaseClient):
 
         Args:
             uuids (List[str]): A series of timeseries UUIDs to search for.
-            start (datetime str): Start (>=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
-            end (datetime str): End (<=) of time period. The period (start to end) can not exceed 1 year.
-                Must be in format: YYYY-MM-DDThh:mm:ss+hh:mm (as defined by RFC 3339, section 5.6.)
+            start (datetime): Start (>=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
+            end (datetime): End (<=) of time period. The period (start to end) can not exceed 1 year.
+                Must be in RFC 3339 compliant format, section 5.6.
             unit (optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
             ge (optional[int]): Value should be greater or equal to (>=) this.
             le (optional[int]): Value should be less or equal to (<=) this.
@@ -393,8 +399,8 @@ class TimeseriesClient(BaseClient):
             url=f'{self._base_url}/{self._api_version}/tsquery',
             params=filter_none_values_from_dict({
                 'uuids': uuids,
-                'start': start,
-                'end': end,
+                'start': start.isoformat(),
+                'end': end.isoformat(),
                 'unit': unit,
                 'ge': ge,
                 'le': le,
