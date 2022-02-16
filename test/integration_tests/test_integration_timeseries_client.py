@@ -3,6 +3,8 @@ from typing import List, Dict
 
 import unittest
 
+import pyrfc3339
+
 from selfhost_client import SelfHostClient, TimeseriesType, TimeseriesDataPointType, TimeseriesDataType
 
 
@@ -28,15 +30,15 @@ class TestIntegrationTimeseriesClient(unittest.TestCase):
         )
         cls.client.create_timeseries_data(cls.created_timeseries['uuid'], [{
             'v': 3.14,
-            'ts': '2022-02-14T11:16:40.005Z'
+            'ts': pyrfc3339.parse('2022-02-14T11:16:40.005Z')
         }])
 
     @classmethod
     def tearDownClass(cls) -> None:
         cls.client.delete_timeseries_data(
             cls.created_timeseries['uuid'],
-            start='2022-02-13T11:16:40.005Z',
-            end='2022-02-15T11:16:40.005Z'
+            start=pyrfc3339.parse('2022-02-13T11:16:40.005Z'),
+            end=pyrfc3339.parse('2022-02-15T11:16:40.005Z')
         )
         cls.client.delete_timeseries(cls.created_timeseries['uuid'])
 
@@ -76,18 +78,18 @@ class TestIntegrationTimeseriesClient(unittest.TestCase):
         # Create and delete happens in the setup and teardown methods.
         fetched_timeseries_data: List[TimeseriesDataPointType] = self.client.get_timeseries_data(
             self.created_timeseries['uuid'],
-            start='2022-02-13T11:16:40.005Z',
-            end='2022-02-15T11:16:40.005Z'
+            start=pyrfc3339.parse('2022-02-13T11:16:40.005Z'),
+            end=pyrfc3339.parse('2022-02-15T11:16:40.005Z')
         )
         self.assertEqual(fetched_timeseries_data[0]['v'], 3.14)
-        self.assertEqual(fetched_timeseries_data[0]['ts'], '2022-02-14T11:16:40.005Z')
+        self.assertEqual(fetched_timeseries_data[0]['ts'], pyrfc3339.parse('2022-02-14T11:16:40.005Z'))
 
     def test_get_multiple_timeseries_data(self) -> None:
         fetched_timeseries_data: List[TimeseriesDataType] = self.client.get_multiple_timeseries_data(
             uuids=[self.created_timeseries['uuid']],
-            start='2022-02-13T11:16:40.005Z',
-            end='2022-02-15T11:16:40.005Z'
+            start=pyrfc3339.parse('2022-02-13T11:16:40.005Z'),
+            end=pyrfc3339.parse('2022-02-15T11:16:40.005Z')
         )
         self.assertEqual(fetched_timeseries_data[0]['uuid'], self.created_timeseries['uuid'])
         self.assertEqual(fetched_timeseries_data[0]['data'][0]['v'], 3.14)
-        self.assertEqual(fetched_timeseries_data[0]['data'][0]['ts'], '2022-02-14T11:16:40.005Z')
+        self.assertEqual(fetched_timeseries_data[0]['data'][0]['ts'], pyrfc3339.parse('2022-02-14T11:16:40.005Z'))
