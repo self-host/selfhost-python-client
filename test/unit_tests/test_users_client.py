@@ -1,11 +1,10 @@
 import json
-import datetime
 from typing import List, Dict, Union
 
+import pyrfc3339
 import responses
 import unittest
 import urllib
-from pyrfc3339.utils import FixedOffset
 
 from selfhost_client import UsersClient, PolicyType, UserType, UserTokenType, CreatedUserTokenResponse
 from selfhost_client.types.user_types import UserTokenResponse
@@ -282,7 +281,7 @@ class TestUsersClient(unittest.TestCase):
             self.assertEqual(res[0]['name'], mock_response[0]['name'])
             self.assertEqual(
                 res[0]['created'],
-                datetime.datetime(2020, 3, 9, 9, 48, 30, 35000, tzinfo=FixedOffset(2, 0))
+                pyrfc3339.parse('2020-03-09T09:48:30.035+02:00')
             )
 
     @responses.activate

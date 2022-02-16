@@ -2,10 +2,10 @@ import datetime
 import json
 from typing import List, Dict, Union
 
+import pyrfc3339
 import responses
 import unittest
 import urllib
-from pyrfc3339.utils import FixedOffset
 
 from selfhost_client import (
     TimeseriesClient,
@@ -220,9 +220,9 @@ class TestPCTTimeseriesClient(unittest.TestCase):
                 status=200
             )
 
-            params: Dict[str, Union[str, int]] = {
-                'start': '2022-01-14T12:43:44.147Z',
-                'end': '2022-01-14T12:43:44.147Z',
+            params: Dict[str, Union[str, int, datetime.datetime]] = {
+                'start': pyrfc3339.parse('2022-01-14T12:43:44.147Z'),
+                'end': pyrfc3339.parse('2022-01-14T12:43:44.147Z'),
                 'unit': 'C',
                 'ge': 0,
                 'le': 0,
@@ -231,17 +231,22 @@ class TestPCTTimeseriesClient(unittest.TestCase):
                 'timezone': 'UTC'
             }
 
+            expected_query_params: Dict[str, Union[str, int]] = {
+                **params,
+                'start': params['start'].isoformat(),
+                'end': params['end'].isoformat()
+            }
+
             res: List[TimeseriesDataPointType] = self.client.get_timeseries_data(timeseries_uuid, **params)
 
             self.assertEqual(len(responses.calls), 1)
-
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._timeseries_api_path}/{timeseries_uuid}/data'
-                f'?{urllib.parse.urlencode(params)}'
+                f'?{urllib.parse.urlencode(expected_query_params)}'
             )
-            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'])
-            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'])
+            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'].isoformat())
+            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'].isoformat())
             self.assertEqual(responses.calls[0].request.params.get('unit'), params['unit'])
             self.assertEqual(responses.calls[0].request.params.get('ge'), str(params['ge']))
             self.assertEqual(responses.calls[0].request.params.get('le'), str(params['le']))
@@ -252,7 +257,7 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(res[0]['v'], mock_response[0]['v'])
             self.assertEqual(
                 res[0]['ts'],
-                datetime.datetime(2022, 1, 14, 12, 43, 44, 147000, tzinfo=FixedOffset(0, 0))
+                pyrfc3339.parse('2022-01-14T12:43:44.147Z')
             )
 
     @responses.activate
@@ -269,8 +274,8 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             unit: str = 'C'
 
             body: List[TimeseriesDataPointType] = [
-                {'ts': '2022-01-14T12:52:04.147Z', 'v': 3.01},
-                {'ts': '2022-01-14T12:52:04.147Z', 'v': 3.99}
+                {'ts': pyrfc3339.parse('2022-01-14T12:52:04.147Z'), 'v': 3.01},
+                {'ts': pyrfc3339.parse('2022-01-14T12:52:04.147Z'), 'v': 3.99}
             ]
 
             self.client.create_timeseries_data(timeseries_uuid, body, unit)
@@ -283,7 +288,11 @@ class TestPCTTimeseriesClient(unittest.TestCase):
                 f'?{urllib.parse.urlencode({"unit": unit})}'
             )
             self.assertEqual(responses.calls[0].request.params.get('unit'), unit)
-            self.assertEqual(json.loads(responses.calls[0].request.body.decode('utf-8')), body)
+            sent_body: List[TimeseriesDataPointResponse] = json.loads(responses.calls[0].request.body.decode('utf-8'))
+            self.assertEqual(sent_body[0]['ts'], body[0]['ts'].isoformat())
+            self.assertEqual(sent_body[0]['v'], body[0]['v'])
+            self.assertEqual(sent_body[1]['ts'], body[1]['ts'].isoformat())
+            self.assertEqual(sent_body[1]['v'], body[1]['v'])
 
     @responses.activate
     def test_delete_timeseries_data(self) -> None:
@@ -296,11 +305,17 @@ class TestPCTTimeseriesClient(unittest.TestCase):
                 status=204
             )
 
-            params: Dict[str, Union[str, int]] = {
-                'start': '2022-01-14T12:52:04.147Z',
-                'end': '2022-01-14T12:52:04.147Z',
+            params: Dict[str, Union[str, int, datetime.datetime]] = {
+                'start': pyrfc3339.parse('2022-01-14T12:52:04.147Z'),
+                'end': pyrfc3339.parse('2022-01-14T12:52:04.147Z'),
                 'ge': 0,
                 'le': 0
+            }
+
+            expected_query_params: Dict[str, Union[str, int]] = {
+                **params,
+                'start': params['start'].isoformat(),
+                'end': params['end'].isoformat()
             }
 
             self.client.delete_timeseries_data(timeseries_uuid, **params)
@@ -310,10 +325,10 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/{self.client._timeseries_api_path}/{timeseries_uuid}/data'
-                f'?{urllib.parse.urlencode(params)}'
+                f'?{urllib.parse.urlencode(expected_query_params)}'
             )
-            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'])
-            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'])
+            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'].isoformat())
+            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'].isoformat())
             self.assertEqual(responses.calls[0].request.params.get('ge'), str(params['ge']))
             self.assertEqual(responses.calls[0].request.params.get('le'), str(params['le']))
 
@@ -336,16 +351,22 @@ class TestPCTTimeseriesClient(unittest.TestCase):
                 status=200
             )
 
-            params: Dict[str, Union[str, int, List[str]]] = {
+            params: Dict[str, Union[str, int, List[str], datetime.datetime]] = {
                 'uuids': ['be7823cc-44fa-403d-853f-d5ce48a002e4', 'ze7823cc-44fa-403d-853f-d5ce48a002e4'],
-                'start': '2022-01-14T12:43:44.147Z',
-                'end': '2022-01-14T12:43:44.147Z',
+                'start': pyrfc3339.parse('2022-01-14T12:43:44.147Z'),
+                'end': pyrfc3339.parse('2022-01-14T12:43:44.147Z'),
                 'unit': 'C',
                 'ge': 0,
                 'le': 0,
                 'precision': 'second',
                 'aggregate': 'avg',
                 'timezone': 'UTC'
+            }
+
+            expected_query_params: Dict[str, Union[str, int, List[str]]] = {
+                **params,
+                'start': params['start'].isoformat(),
+                'end': params['end'].isoformat()
             }
 
             res: List[TimeseriesDataType] = self.client.get_multiple_timeseries_data(**params)
@@ -355,11 +376,11 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(
                 responses.calls[0].request.url,
                 f'{self.base_url}/{self.client._api_version}/tsquery'
-                f'?{urllib.parse.urlencode(params, doseq=True)}'
+                f'?{urllib.parse.urlencode(expected_query_params, doseq=True)}'
             )
             self.assertEqual(responses.calls[0].request.params.get('uuids'), params['uuids'])
-            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'])
-            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'])
+            self.assertEqual(responses.calls[0].request.params.get('start'), params['start'].isoformat())
+            self.assertEqual(responses.calls[0].request.params.get('end'), params['end'].isoformat())
             self.assertEqual(responses.calls[0].request.params.get('unit'), params['unit'])
             self.assertEqual(responses.calls[0].request.params.get('ge'), str(params['ge']))
             self.assertEqual(responses.calls[0].request.params.get('le'), str(params['le']))
@@ -370,5 +391,5 @@ class TestPCTTimeseriesClient(unittest.TestCase):
             self.assertEqual(res[0]['data'][0]['v'], mock_response[0]['data'][0]['v'])
             self.assertEqual(
                 res[0]['data'][0]['ts'],
-                datetime.datetime(2022, 1, 14, 12, 43, 44, 147000, tzinfo=FixedOffset(0, 0))
+                pyrfc3339.parse('2022-01-14T12:43:44.147Z')
             )
