@@ -1,13 +1,15 @@
 import os
 import re
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 ROOT = os.path.dirname(__file__)
 VERSION_RE = re.compile(r'''__version__ = ['"]([0-9.]+)['"]''')
 
 requires = [
     'requests',
+    'pyrfc3339',
+    'beartype',
 ]
 
 
@@ -25,7 +27,7 @@ setup(
     author_email='mikael.brorsson@noda.se',
     url='https://github.com/self-host/selfhost-python-client',
     scripts=[],
-    packages=['selfhost_client'],
+    packages=find_packages(),
     install_requires=requires,
     license='MIT License',
     python_requires='>= 3.7',
