@@ -8,8 +8,13 @@ from beartype import beartype
 from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
-from .types.timeseries_types import TimeseriesType, TimeseriesDataPointType, TimeseriesDataType, \
-    TimeseriesDataPointResponse, TimeseriesDataResponse
+from .types.timeseries_types import (
+    TimeseriesType,
+    TimeseriesDataPointType,
+    TimeseriesDataType,
+    TimeseriesDataPointResponse,
+    TimeseriesDataResponse,
+)
 from .utils import filter_none_values_from_dict
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -22,20 +27,22 @@ class TimeseriesClient(BaseClient):
     """
 
     @beartype
-    def __init__(self,
-                 base_url: Optional[str] = None,
-                 username: Optional[str] = None,
-                 password: Optional[str] = None
-                 ) -> None:
+    def __init__(
+        self,
+        base_url: Optional[str] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+    ) -> None:
         super().__init__(base_url, username, password)
-        self._timeseries_api_path = 'timeseries'
+        self._timeseries_api_path = "timeseries"
 
     @beartype
-    def get_timeseries(self,
-                       limit: Optional[int] = None,
-                       offset: Optional[int] = None,
-                       tags: Optional[List[str]] = None
-                       ) -> List[TimeseriesType]:
+    def get_timeseries(
+        self,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> List[TimeseriesType]:
         """Fetches timeseries from NODA Self-host API
 
         Args:
@@ -55,24 +62,23 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}',
-            params=filter_none_values_from_dict({
-                'limit': limit,
-                'offset': offset,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}",
+            params=filter_none_values_from_dict(
+                {"limit": limit, "offset": offset, "tags": tags}
+            ),
         )
         return self._process_response(response)
 
     @beartype
-    def create_timeseries(self,
-                          name: str,
-                          si_unit: str,
-                          thing_uuid: Optional[str] = None,
-                          lower_bound: Optional[int] = None,
-                          upper_bound: Optional[int] = None,
-                          tags: Optional[List[str]] = None
-                          ) -> TimeseriesType:
+    def create_timeseries(
+        self,
+        name: str,
+        si_unit: str,
+        thing_uuid: Optional[str] = None,
+        lower_bound: Optional[int] = None,
+        upper_bound: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> TimeseriesType:
         """Add a new timeseries to the NODA Self-host API
 
         Args:
@@ -95,15 +101,17 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.post(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}',
-            json=filter_none_values_from_dict({
-                'name': name,
-                'si_unit': si_unit,
-                'thing_uuid': thing_uuid,
-                'lower_bound': lower_bound,
-                'upper_bound': upper_bound,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}",
+            json=filter_none_values_from_dict(
+                {
+                    "name": name,
+                    "si_unit": si_unit,
+                    "thing_uuid": thing_uuid,
+                    "lower_bound": lower_bound,
+                    "upper_bound": upper_bound,
+                    "tags": tags,
+                }
+            ),
         )
         return self._process_response(response)
 
@@ -127,20 +135,21 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}'
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}"
         )
         return self._process_response(response)
 
     @beartype
-    def update_timeseries(self,
-                          timeseries_uuid: str,
-                          name: Optional[str] = None,
-                          si_unit: Optional[str] = None,
-                          thing_uuid: Optional[str] = None,
-                          lower_bound: Optional[int] = None,
-                          upper_bound: Optional[int] = None,
-                          tags: Optional[List[str]] = None
-                          ) -> None:
+    def update_timeseries(
+        self,
+        timeseries_uuid: str,
+        name: Optional[str] = None,
+        si_unit: Optional[str] = None,
+        thing_uuid: Optional[str] = None,
+        lower_bound: Optional[int] = None,
+        upper_bound: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> None:
         """Updates a timeseries from NODA Self-host API
 
         Args:
@@ -162,15 +171,17 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.put(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}',
-            json=filter_none_values_from_dict({
-                'name': name,
-                'si_unit': si_unit,
-                'thing_uuid': thing_uuid,
-                'lower_bound': lower_bound,
-                'upper_bound': upper_bound,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}",
+            json=filter_none_values_from_dict(
+                {
+                    "name": name,
+                    "si_unit": si_unit,
+                    "thing_uuid": thing_uuid,
+                    "lower_bound": lower_bound,
+                    "upper_bound": upper_bound,
+                    "tags": tags,
+                }
+            ),
         )
         return self._process_response(response)
 
@@ -191,22 +202,23 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.delete(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}'
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}"
         )
         return self._process_response(response)
 
     @beartype
-    def get_timeseries_data(self,
-                            timeseries_uuid: str,
-                            start: datetime.datetime,
-                            end: datetime.datetime,
-                            unit: Optional[str] = None,
-                            ge: Optional[int] = None,
-                            le: Optional[int] = None,
-                            precision: Optional[str] = None,
-                            aggregate: Optional[str] = None,
-                            timezone: Optional[str] = None
-                            ) -> List[TimeseriesDataPointType]:
+    def get_timeseries_data(
+        self,
+        timeseries_uuid: str,
+        start: datetime.datetime,
+        end: datetime.datetime,
+        unit: Optional[str] = None,
+        ge: Optional[int] = None,
+        le: Optional[int] = None,
+        precision: Optional[str] = None,
+        aggregate: Optional[str] = None,
+        timezone: Optional[str] = None,
+    ) -> List[TimeseriesDataPointType]:
         """Fetch a range of timeseries data from NODA Self-host API
 
         Args:
@@ -250,17 +262,19 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
-            params=filter_none_values_from_dict({
-                'start': start.isoformat(),
-                'end': end.isoformat(),
-                'unit': unit,
-                'ge': ge,
-                'le': le,
-                'precision': precision,
-                'aggregate': aggregate,
-                'timezone': timezone
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data",
+            params=filter_none_values_from_dict(
+                {
+                    "start": start.isoformat(),
+                    "end": end.isoformat(),
+                    "unit": unit,
+                    "ge": ge,
+                    "le": le,
+                    "precision": precision,
+                    "aggregate": aggregate,
+                    "timezone": timezone,
+                }
+            ),
         )
 
         if response.status_code == 204:
@@ -279,11 +293,12 @@ class TimeseriesClient(BaseClient):
         ]
 
     @beartype
-    def create_timeseries_data(self,
-                               timeseries_uuid: str,
-                               data_points: List[TimeseriesDataPointType],
-                               unit: Optional[str] = None
-                               ) -> None:
+    def create_timeseries_data(
+        self,
+        timeseries_uuid: str,
+        data_points: List[TimeseriesDataPointType],
+        unit: Optional[str] = None,
+    ) -> None:
         """Add data points to a timeseries from NODA Self-host API
 
         Args:
@@ -300,26 +315,27 @@ class TimeseriesClient(BaseClient):
             :class:`.SelfHostInternalServerException`: Server encountered an unexpected condition that prevented it
                 from fulfilling the request.
         """
-        filtered_data_points: List[TimeseriesDataPointResponse] = [{
-            'v': data_point['v'],
-            'ts': data_point['ts'].isoformat()
-        } for data_point in data_points]
+        filtered_data_points: List[TimeseriesDataPointResponse] = [
+            {"v": data_point["v"], "ts": data_point["ts"].isoformat()}
+            for data_point in data_points
+        ]
 
         response: Response = self._session.post(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
-            params=filter_none_values_from_dict({'unit': unit}),
-            json=filtered_data_points
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data",
+            params=filter_none_values_from_dict({"unit": unit}),
+            json=filtered_data_points,
         )
         return self._process_response(response)
 
     @beartype
-    def delete_timeseries_data(self,
-                               timeseries_uuid: str,
-                               start: datetime.datetime,
-                               end: datetime.datetime,
-                               ge: Optional[int] = None,
-                               le: Optional[int] = None
-                               ) -> None:
+    def delete_timeseries_data(
+        self,
+        timeseries_uuid: str,
+        start: datetime.datetime,
+        end: datetime.datetime,
+        ge: Optional[int] = None,
+        le: Optional[int] = None,
+    ) -> None:
         """Delete a range of timeseries data from NODA Self-host API
 
         Args:
@@ -341,28 +357,26 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.delete(
-            url=f'{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data',
-            params=filter_none_values_from_dict({
-                'start': start.isoformat(),
-                'end': end.isoformat(),
-                'ge': ge,
-                'le': le
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data",
+            params=filter_none_values_from_dict(
+                {"start": start.isoformat(), "end": end.isoformat(), "ge": ge, "le": le}
+            ),
         )
         return self._process_response(response)
 
     @beartype
-    def get_multiple_timeseries_data(self,
-                                     uuids: List[str],
-                                     start: datetime.datetime,
-                                     end: datetime.datetime,
-                                     unit: Optional[str] = None,
-                                     ge: Optional[int] = None,
-                                     le: Optional[int] = None,
-                                     precision: Optional[str] = None,
-                                     aggregate: Optional[str] = None,
-                                     timezone: Optional[str] = None
-                                     ) -> List[TimeseriesDataType]:
+    def get_multiple_timeseries_data(
+        self,
+        uuids: List[str],
+        start: datetime.datetime,
+        end: datetime.datetime,
+        unit: Optional[str] = None,
+        ge: Optional[int] = None,
+        le: Optional[int] = None,
+        precision: Optional[str] = None,
+        aggregate: Optional[str] = None,
+        timezone: Optional[str] = None,
+    ) -> List[TimeseriesDataType]:
         """Fetch multiple ranges of timeseries data from NODA Self-host API
 
         Args:
@@ -406,24 +420,32 @@ class TimeseriesClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/tsquery',
-            params=filter_none_values_from_dict({
-                'uuids': uuids,
-                'start': start.isoformat(),
-                'end': end.isoformat(),
-                'unit': unit,
-                'ge': ge,
-                'le': le,
-                'precision': precision,
-                'aggregate': aggregate,
-                'timezone': timezone
-            })
+            url=f"{self._base_url}/{self._api_version}/tsquery",
+            params=filter_none_values_from_dict(
+                {
+                    "uuids": uuids,
+                    "start": start.isoformat(),
+                    "end": end.isoformat(),
+                    "unit": unit,
+                    "ge": ge,
+                    "le": le,
+                    "precision": precision,
+                    "aggregate": aggregate,
+                    "timezone": timezone,
+                }
+            ),
         )
         timeseries_data: List[TimeseriesDataResponse] = self._process_response(response)
-        return [{
-            'uuid': data.get('uuid'),
-            'data': [{
-                'v': data_point.get('v'),
-                'ts': pyrfc3339.parse(data_point.get('ts'))
-            } for data_point in data.get('data')]
-        } for data in timeseries_data]
+        return [
+            {
+                "uuid": data.get("uuid"),
+                "data": [
+                    {
+                        "v": data_point.get("v"),
+                        "ts": pyrfc3339.parse(data_point.get("ts")),
+                    }
+                    for data_point in data.get("data")
+                ],
+            }
+            for data in timeseries_data
+        ]
