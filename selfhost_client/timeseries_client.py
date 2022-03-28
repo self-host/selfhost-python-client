@@ -262,11 +262,21 @@ class TimeseriesClient(BaseClient):
                 'timezone': timezone
             })
         )
-        timeseries_data_points: List[TimeseriesDataPointResponse] = self._process_response(response)
-        return [{
-            'v': data_point.get('v'),
-            'ts': pyrfc3339.parse(data_point.get('ts'))
-        } for data_point in timeseries_data_points]
+
+        if response.status_code == 204:
+            return []
+
+        timeseries_data_points: List[
+            TimeseriesDataPointResponse
+        ] = self._process_response(response)
+
+        if timeseries_data_points is None:
+            return []
+
+        return [
+            {"v": data_point.get("v"), "ts": pyrfc3339.parse(data_point.get("ts"))}
+            for data_point in timeseries_data_points
+        ]
 
     @beartype
     def create_timeseries_data(self,
