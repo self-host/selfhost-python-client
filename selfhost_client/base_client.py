@@ -1,7 +1,7 @@
 import json.decoder
-import os
 import logging
-from typing import Type, Dict, Optional, Any
+import os
+from typing import Any, Dict, Optional, Type
 from warnings import filterwarnings
 
 import requests
@@ -10,14 +10,14 @@ from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .exceptions import (
     SelfHostBadRequestException,
-    SelfHostUnauthorizedException,
-    SelfHostForbiddenException,
-    SelfHostNotFoundException,
     SelfHostConflictException,
-    SelfHostTooManyRequestsException,
-    SelfHostInternalServerException,
     SelfHostFatalErrorException,
-    SelfHostMethodNotAllowedException
+    SelfHostForbiddenException,
+    SelfHostInternalServerException,
+    SelfHostMethodNotAllowedException,
+    SelfHostNotFoundException,
+    SelfHostTooManyRequestsException,
+    SelfHostUnauthorizedException,
 )
 
 filterwarnings("ignore", category=BeartypeDecorHintPep585DeprecationWarning)
@@ -34,11 +34,12 @@ class BaseClient:
     """
 
     @beartype
-    def __init__(self,
-                 base_url: Optional[str] = None,
-                 username: Optional[str] = None,
-                 password: Optional[str] = None
-                 ) -> None:
+    def __init__(
+        self,
+        base_url: Optional[str] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+    ) -> None:
         """BaseClient constructor
 
         Sets the base url for the NODA Self-host API and authentication credentials in a new requests session.
@@ -61,21 +62,26 @@ class BaseClient:
             :class:`.SelfHostFatalErrorException`: The client could not find auth credentials and a
                 base url for the NODA Self-host API
         """
-        self._api_version: str = 'v2'
+        self._api_version: str = "v2"
         if base_url:
             self._base_url = base_url
-        elif os.environ.get('SELF_HOST_BASE_URL'):
-            self._base_url = os.environ.get('SELF_HOST_BASE_URL')
+        elif os.environ.get("SELF_HOST_BASE_URL"):
+            self._base_url = os.environ.get("SELF_HOST_BASE_URL")
         else:
-            raise SelfHostFatalErrorException('No base_url provided to client')
+            raise SelfHostFatalErrorException("No base_url provided to client")
 
         self._session: Session = requests.Session()
         if username and password:
             self._session.auth = (username, password)
-        elif os.environ.get('SELF_HOST_USERNAME') and os.environ.get('SELF_HOST_PASSWORD'):
-            self._session.auth = (os.environ.get('SELF_HOST_USERNAME'), os.environ.get('SELF_HOST_PASSWORD'))
+        elif os.environ.get("SELF_HOST_USERNAME") and os.environ.get(
+            "SELF_HOST_PASSWORD"
+        ):
+            self._session.auth = (
+                os.environ.get("SELF_HOST_USERNAME"),
+                os.environ.get("SELF_HOST_PASSWORD"),
+            )
         else:
-            raise SelfHostFatalErrorException('No credentials provided to client')
+            raise SelfHostFatalErrorException("No credentials provided to client")
 
     @beartype
     def _process_response(self, response: Response) -> Optional[Any]:
@@ -100,10 +106,10 @@ class BaseClient:
                 from fulfilling the request.
         """
         logger.debug(
-            f'API Request sent:\n'
-            f'Url: {response.request.url}\n'
-            f'Body: {response.request.body}\n'
-            f'Status Code: {response.status_code}'
+            f"API Request sent:\n"
+            f"Url: {response.request.url}\n"
+            f"Body: {response.request.body}\n"
+            f"Status Code: {response.status_code}"
         )
         responses: Dict[int, Type[Exception]] = {
             400: SelfHostBadRequestException,
