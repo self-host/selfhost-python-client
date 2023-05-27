@@ -114,7 +114,8 @@ class BaseClient:
             409: SelfHostConflictException,
             429: SelfHostTooManyRequestsException,
         }
-        if response.status_code < 400:
+
+        if response.status_code == 200:
             try:
                 return response.json()
             except json.decoder.JSONDecodeError:
