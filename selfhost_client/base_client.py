@@ -127,6 +127,10 @@ class BaseClient:
             except json.decoder.JSONDecodeError:
                 return response.content or None
         elif 400 <= response.status_code < 500:
-            raise responses[response.status_code]
+            if response.json():
+                raise responses[response.status_code](
+                    message=response.json().get("error")
+                )
+            raise responses[response.status_code](message=response.text)
         else:
             raise SelfHostInternalServerException

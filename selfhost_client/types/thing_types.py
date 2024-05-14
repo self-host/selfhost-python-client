@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Union
 
 try:
     from typing import TypedDict
@@ -40,9 +40,15 @@ class ThingType(TypedDict):
         }
 
     """
+
     uuid: str
     name: str
     state: str
     type: str
     created_by: str
     tags: List[str]
+
+
+class ThingParameterType(TypedDict):
+    key: str
+    value: Union[str, int, float, bool]

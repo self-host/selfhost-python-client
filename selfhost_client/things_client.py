@@ -7,7 +7,7 @@ from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.dataset_types import DatasetType
-from .types.thing_types import ThingType
+from .types.thing_types import ThingType, ThingParameterType
 from .types.timeseries_types import TimeseriesType
 from .utils import filter_none_values_from_dict
 
@@ -21,20 +21,22 @@ class ThingsClient(BaseClient):
     """
 
     @beartype
-    def __init__(self,
-                 base_url: Optional[str] = None,
-                 username: Optional[str] = None,
-                 password: Optional[str] = None
-                 ) -> None:
+    def __init__(
+        self,
+        base_url: Optional[str] = None,
+        username: Optional[str] = None,
+        password: Optional[str] = None,
+    ) -> None:
         super().__init__(base_url, username, password)
-        self._things_api_path = 'things'
+        self._things_api_path = "things"
 
     @beartype
-    def get_things(self,
-                   limit: Optional[int] = None,
-                   offset: Optional[int] = None,
-                   tags: Optional[List[str]] = None
-                   ) -> List[ThingType]:
+    def get_things(
+        self,
+        limit: Optional[int] = None,
+        offset: Optional[int] = None,
+        tags: Optional[List[str]] = None,
+    ) -> List[ThingType]:
         """Fetches things from NODA Self-host API
 
         Args:
@@ -54,21 +56,20 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}',
-            params=filter_none_values_from_dict({
-                'limit': limit,
-                'offset': offset,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}",
+            params=filter_none_values_from_dict(
+                {"limit": limit, "offset": offset, "tags": tags}
+            ),
         )
         return self._process_response(response)
 
     @beartype
-    def create_thing(self,
-                     name: str,
-                     thing_type: Optional[str] = None,
-                     tags: Optional[List[str]] = None
-                     ) -> ThingType:
+    def create_thing(
+        self,
+        name: str,
+        thing_type: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+    ) -> ThingType:
         """Add a new thing to the NODA Self-host API
 
         Args:
@@ -88,12 +89,10 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.post(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}',
-            json=filter_none_values_from_dict({
-                'name': name,
-                'type': thing_type,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}",
+            json=filter_none_values_from_dict(
+                {"name": name, "type": thing_type, "tags": tags}
+            ),
         )
         return self._process_response(response)
 
@@ -117,18 +116,19 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}'
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}"
         )
         return self._process_response(response)
 
     @beartype
-    def update_thing(self,
-                     thing_uuid: str,
-                     name: Optional[str] = None,
-                     state: Optional[str] = None,
-                     thing_type: Optional[str] = None,
-                     tags: Optional[List[str]] = None
-                     ) -> None:
+    def update_thing(
+        self,
+        thing_uuid: str,
+        name: Optional[str] = None,
+        state: Optional[str] = None,
+        thing_type: Optional[str] = None,
+        tags: Optional[List[str]] = None,
+    ) -> None:
         """Updates a thing from NODA Self-host API
 
         Args:
@@ -157,13 +157,10 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.put(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}',
-            json=filter_none_values_from_dict({
-                'name': name,
-                'state': state,
-                'type': thing_type,
-                'tags': tags
-            })
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}",
+            json=filter_none_values_from_dict(
+                {"name": name, "state": state, "type": thing_type, "tags": tags}
+            ),
         )
         return self._process_response(response)
 
@@ -184,7 +181,7 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.delete(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}'
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}"
         )
         return self._process_response(response)
 
@@ -208,7 +205,7 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/datasets'
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/datasets"
         )
         return self._process_response(response)
 
@@ -232,6 +229,68 @@ class ThingsClient(BaseClient):
                 from fulfilling the request.
         """
         response: Response = self._session.get(
-            url=f'{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/timeseries'
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/timeseries"
+        )
+        return self._process_response(response)
+
+    @beartype
+    def get_thing_parameters(
+        self,
+        thing_uuid: str,
+        startsWith: Optional[str] = None,
+        endsWith: Optional[str] = None,
+    ) -> List[ThingParameterType]:
+        """Returns a list of parameters associated with the specified thing from NODA Self-host API
+
+        Args:
+            thing_uuid (str): UUID of the target user.
+            startsWith (Optional[str], optional): Parameter name prefix. Defaults to None.
+            endsWith (Optional[str], optional): Parameter name suffix. Defaults to None.
+
+        Returns:
+            List[:class:`.ParameterType`]
+
+        Raises:
+            :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.
+            :class:`.SelfHostUnauthorizedException`: Request was refused due to lacking authentication credentials.
+            :class:`.SelfHostForbiddenException`: Server understands the request but refuses to authorize it.
+            :class:`.SelfHostNotFoundException`: The requested resource was not found.
+            :class:`.SelfHostTooManyRequestsException`: Sent too many requests in a given amount of time.
+            :class:`.SelfHostInternalServerException`: Server encountered an unexpected condition that prevented it
+                from fulfilling the request.
+        """
+        response: Response = self._session.get(
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/params",
+            params=filter_none_values_from_dict(
+                {"startsWith": startsWith, "endsWith": endsWith}
+            ),
+        )
+        return self._process_response(response)
+
+    @beartype
+    def set_thing_parameters(
+        self,
+        thing_uuid: str,
+        parameters: List[ThingParameterType],
+    ) -> None:
+        """Sets a list of parameters associated with the specified thing from NODA Self-host API
+
+        Args:
+            thing_uuid (str): UUID of the target user.
+            parameters (List[:class:`.ParameterType`]): List of parameters to set.
+
+        Raises:
+            :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.
+            :class:`.SelfHostUnauthorizedException`: Request was refused due to lacking authentication credentials.
+            :class:`.SelfHostForbiddenException`: Server understands the request but refuses to authorize it.
+            :class:`.SelfHostNotFoundException`: The requested resource was not found.
+            :class:`.SelfHostTooManyRequestsException`: Sent too many requests in a given amount of time.
+            :class:`.SelfHostInternalServerException`: Server encountered an unexpected condition that prevented it
+                from fulfilling the request.
+        """
+
+        response: Response = self._session.put(
+            url=f"{self._base_url}/{self._api_version}/{self._things_api_path}/{thing_uuid}/params",
+            json=parameters,
         )
         return self._process_response(response)
