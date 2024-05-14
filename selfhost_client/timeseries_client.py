@@ -9,11 +9,11 @@ from beartype.roar import BeartypeDecorHintPep585DeprecationWarning
 
 from .base_client import BaseClient
 from .types.timeseries_types import (
-    TimeseriesType,
-    TimeseriesDataPointType,
-    TimeseriesDataType,
     TimeseriesDataPointResponse,
+    TimeseriesDataPointType,
     TimeseriesDataResponse,
+    TimeseriesDataType,
+    TimeseriesType,
 )
 from .utils import filter_none_values_from_dict
 
