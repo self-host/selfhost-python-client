@@ -328,6 +328,41 @@ class TimeseriesClient(BaseClient):
         return self._process_response(response)
 
     @beartype
+    def merge_timeseries_data(
+        self,
+        timeseries_uuid: str,
+        data_points: List[TimeseriesDataPointType],
+        unit: Optional[str] = None,
+    ) -> None:
+        """Merge data points to a timeseries from NODA Self-host API
+
+        Args:
+            timeseries_uuid (str): UUID of timeseries to query.
+            unit (Optional[str]): The SI unit of the result. A cast will occur if the base unit differs.
+            data_points (List[TimeseriesDataPointType]): A list of data points.
+
+        Raises:
+            :class:`.SelfHostBadRequestException`: Sent request had insufficient data or invalid options.
+            :class:`.SelfHostUnauthorizedException`: Request was refused due to lacking authentication credentials.
+            :class:`.SelfHostForbiddenException`: Server understands the request but refuses to authorize it.
+            :class:`.SelfHostNotFoundException`: The requested resource was not found.
+            :class:`.SelfHostTooManyRequestsException`: Sent too many requests in a given amount of time.
+            :class:`.SelfHostInternalServerException`: Server encountered an unexpected condition that prevented it
+                from fulfilling the request.
+        """
+        filtered_data_points: List[TimeseriesDataPointResponse] = [
+            {"v": data_point["v"], "ts": data_point["ts"].isoformat()}
+            for data_point in data_points
+        ]
+
+        response: Response = self._session.put(
+            url=f"{self._base_url}/{self._api_version}/{self._timeseries_api_path}/{timeseries_uuid}/data",
+            params=filter_none_values_from_dict({"unit": unit}),
+            json=filtered_data_points,
+        )
+        return self._process_response(response)
+
+    @beartype
     def delete_timeseries_data(
         self,
         timeseries_uuid: str,
